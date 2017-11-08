@@ -1,0 +1,91 @@
+* Assertions
+
+We need support for nested assertions. At a minimum, there is little difference between a 'criteria assessment' and an assertion.
+
+** Nature of an assertion
+
+In an assertion there is a person making a statement that something is true about a set of other things.
+
+It is not (and cannot) be a mere grouping device.
+
+Nevertheless, the statements made with an assertion frequently do have a natural grouping. It is preferable to preserve this grouping when making queries; forcing every assertion to be grouped to refer to the exact same set of objects every time when making statements is slightly wasteful and, more worryingly, error prone.
+
+On the other hand; it might make it easier to make assertions that relate to a portion of a bundle, both assertions of a similar type, and assertions of a different type (gene, actionability, etc).
+
+There is still a reasonable problem in how to represent this, visually, as a query result to a user.
+
+We might be able to use the current configuration, perhaps by adding link types (for example, has_evidence_strength for actionability queries.
+
+I could also attach the evidence strength assertion to the evidence line, doing this makes the assumption that the evidence given has a *global* strength, and is not strength relative to a statement made by a given assertion.
+
+This feels like a hard problem. It may be better to focus on the more narrow 'building a data model for search' question.
+
+** Assertion for Search
+
+There are just a few entities that we'll actually be searching on.
+
+There isn't as much need to nail down universal types for everything in search. That being said, using universal types when appropriate makes each search less of a one-off.
+
+*** Diseases/Conditions (represented by ontology terms)
+
+*** Regions 
+
+I'm concerned about making these accessible in neo4j. These regions could be discrete, with overlaps that can be precomputed (hence the relationships in the conflict resolution tool), but they could be arbitrary, and neo doesn't seem to do well with searches that involve more than one index (a relational database would do much better in this instance).
+
+*** Genes
+
+Genes could be a thing unto themselves, or modeled as variants on a region
+
+*** Variants
+
+Same issue applies, especially if variants are modeled as annotation on a region.
+
+** Top level concepts
+
+*** Region
+
+*** Annotation of region
+
+**** Gene
+
+**** Variant
+
+*** Assertion
+
+How does this relate to annotation? Is it necessary to say that every fact about a genetic region is an assertion? Or is an assertion always a curation activity (or part of one?)
+
+*** Curation activity
+
+Should I represent a curation activity independent of a specific assertion?
+
+These could reasonably have at least two different types:
+
+**** Curation of a high level concept (gene disease pair, varient disease pair)
+
+Does this represent the actual curation, or just the grouping?
+
+Either way, a curation may or may not be an assertion.
+
+This is feeling like an Activity. I don't think in any of our modeling that we've ever elevated activity to be the first level search term.
+
+It's not. Activity cannot be a referrent in the way we want it to.
+
+**** Curation of low level evidence
+
+Such evidence could potentially to be incorporated later into a proper assertion, but the mere act of collecting evidence does not an assertion make.
+
+The collection of evidence does, however, generally relate to a grouping of entities/concepts
+
+*** Concept (represented in an ontology)
+
+This one is modeled for me, no particular need to expand
+
+** Immutability
+
+At the moment, the website reflects the current state of ClinGen data. There is not a need to expand on the representation of such beyond what's being provided by the interfances.
+
+We might expect the interfaces to have relatively little historical data as such. It still remains to be seen if the key parts of prov will survive SEPIO integration; there is less interest in the SEPIO side in modeling more than an assertion in the moment.
+
+** Provennance 
+
+One often wants to model, with provennance, both the source of a piece of data (in the case of evidence) as well as the person who selected that piece of data for a particular purpose.

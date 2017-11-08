@@ -1,0 +1,24 @@
+* Configuration of neo4j database for ClinGen Knowledge search
+** Constraints
+*** Unique uuid
+**** Entity
+**** Assertion
+**** Intervention (or else find a coded representation?)
+**** Region
+*** Unique iri
+**** Class
+*** Devise
+**** Unique UUID
+**** Indexes
+***** facebook_token
+***** email
+***** remember_token
+***** reset_password_token
+** Incorporate ontologies:
+*** mondo
+*** clingen
+*** hpo? (might need mode of inheritance terms, will need phenotypes for 
+** Import genes from HGNC
+** TODO make Interventions entities ? does this model actually work?
+** TODO Change Class labels to RDFClass--wonky interactions with neo4j.rb otherwise
+

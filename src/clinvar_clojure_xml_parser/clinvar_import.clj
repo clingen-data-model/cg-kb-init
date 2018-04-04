@@ -6,37 +6,30 @@
   (:import java.io.PushbackReader
            java.util.UUID))
 
-
 (defn import-clinicalassertion
   "Import clinicalassertion"
   [i session]
-  (let [props (walk/stringify-keys (dissoc i :scvversion :scvid :clinicalassertionid))]
+  (let [props (walk/stringify-keys (dissoc i :scvversion :scvid :clinicalassertionid :assertionmethod))]
     (.writeTransaction 
      session 
      (neo/tx     
-       ["MERGE (a:Assertion {SCVID: $SCVID,ClinicalAssertionID: $ClinicalAssertionID, 
-        SCVVersion: $SCVVersion,DateUpdated: $DateUpdated,SubmissionDate: $SubmissionDate, Evidence: $Evidence})
+       ["CREATE (a:Assertion {SCVID: $SCVID,ClinicalAssertionID: $ClinicalAssertionID, 
+        SCVVersion: $SCVVersion,DateUpdated: $DateUpdated,SubmitterID: $SubmitterID,SubmissionDate: $SubmissionDate, Evidence: $Evidence})
         CREATE (o:Observation {ClinicalAssertionID: $ClinicalAssertionID})
+        CREATE (c:AssertionCriteria {AssertionMethod: $AssertionMethod})
         MERGE (s:State {RecordStatus: $RecordStatus})
-        MERGE (l:Level {ReviewStatus: $ReviewStatus})
+        MERGE (l:Level {ReviewStatus: $ReviewStatus})  
+        MERGE (b:Submitter {SubmitterID: $SubmitterID})     
         CREATE (a)-[:BASED_ON]->(o)
         CREATE (a)-[:HAS_STATE]->(s)
-        CREATE (a)-[:HAS_LEVEL]->(l)"       
+        CREATE (a)-[:HAS_LEVEL]->(l)
+        CREATE (a)-[:WAS_SUBMITTED_BY]->(b)
+        CREATE (a)-[:HAS_ASSERTION_CRITERIA]->(c)-[:IS_PUBLISHED_IN]->(:Citation {CitationURL: $CitationURL})
+        CREATE (a)-[:HAS_ASSERTION_CRITERIA]->(c)-[:IS_PUBLISHED_IN]->(:Citation {CitationID: $CitationID})"      
         {"SCVID" (:scvid i) "SCVVersion" (:scvversion i) "ClinicalAssertionID" (:clinicalassertionid i) 
-        "DateUpdated" (:dateupdated i) "SubmissionDate" (:submissiondate i) "RecordStatus" (:srecordstatus i) 
-        "ReviewStatus" (:reviewstatus i) "Evidence" (:evidence i) "AssertionMethod" (:assertionmethod i) "props" props}]))))
-
-(defn import-assertionmethod
-  "Importing assertionmethod"
-  [i session]
-  (let [props (walk/stringify-keys (dissoc i :clinicalassertionid :assertionmethod))]
-    (.writeTransaction
-     session
-     (neo/tx
-      ["MERGE (a:Assertion {ClinicalAssertionID: $ClinicalAssertionID})
-        MERGE (c:AssertionCriteria {AssertionMethod: $AssertionMethod})
-        CREATE (a)-[:HAS_ASSERTION_CRITERIA]->(c)"
-       {"AssertionMethod" (:assertionmethod i) "props" props}])))) 
+        "DateUpdated" (:dateupdated i) "SubmitterID" (:submitterid i) "SubmissionDate" (:submissiondate i) "RecordStatus" (:srecordstatus i) 
+        "ReviewStatus" (:reviewstatus i) "Evidence" (:evidence i) "AssertionMethod" (:assertionmethod i) 
+        "CitationURL" (:citationurl i) "CitationID" (:citationid i) "props" props}]))))
 
 (defn import-clinvar-data
   "Import ClinVar CNVs from intermediate format in EDN"

@@ -26,6 +26,7 @@
                    :ClinVarAssertion
                    (attr :ID))]
     (map #(into {} (filter val {:clinicalassertionid (str id)
+                                :submitterid (some-> (xml1-> % :ClinVarAccession (attr :OrgID)))
                                 :submissiondate (some-> (xml1-> % :ClinVarSubmissionID (attr :submitterDate)))
                                 :dateupdated (some->
                                              (xml1-> % :ClinVarAccession (attr :DateUpdated)))
@@ -38,51 +39,19 @@
                                                      (xml1-> %  (attr :DateLastEvaluated)))                               
                                 :srecordstatus (xml1-> %
                                                       :RecordStatus
-                                                      text)
-                      
+                                                      text)                     
                                 :evidence
                                 (xml1-> % :ClinicalSignificance
                                             :Description
                                             text)                         
-                                :reviewstatus (xml1-> % :ClinicalSignificance :ReviewStatus text)  
-                                ;:assertionmethod (some->(xml1-> % :AttributeSet :Attribute (attr= :Type "AssertionMethod")) text)
-                                ;:citationurl (some->(xml1-> % :AttributeSet :Citation :URL) text)
-                                ;:citationid (some->(xml1-> % :AttributeSet :Citation :ID) text)
+                                :reviewstatus (xml1-> % :ClinicalSignificance :ReviewStatus text)
+                                :citationid (some->(xml1-> % :ClinicalSignificance :Citation :ID) text)
+                                :citationsource (xml1-> % :ClinicalSignificance :Citation :ID (attr :Source))
+                                :assertionmethod (some->(xml1-> % :AttributeSet :Attribute (attr= :Type "AssertionMethod")) text)
+                                :citationurl (some->(xml1-> % :AttributeSet :Citation :URL) text)
+                                :citationid2 (some->(xml1-> % :AttributeSet :Citation :ID) text)
                                }))
          scvs)))
-
-(defn construct-assertion-method
-  "Construct assertion-method table structure for import to neo"
-  [node]
-  (let [z (zip/xml-zip node)
-        assertionm (xml-> z
-                     :ClinVarAssertion)             
-        id (xml1-> z
-                   :ClinVarAssertion
-                   (attr :ID))]
-        (map #(into {} (filter val {:clinicalassertionid (str id)
-                                    :assertionmethod (some->(xml1-> % :AttributeSet :Attribute (attr= :Type "AssertionMethod")) text)
-                                    :citationurl (some->(xml1-> % :AttributeSet :Citation :URL) text)
-                                    :citationid (some->(xml1-> % :AttributeSet :Citation :ID) text)
-                                    }))
-             assertionm)))
-
-(defn construct-assertion-annot
-  "Construct assertion-annot table structure for import to neo"
-  [node]
-  (let [z (zip/xml-zip node)
-        assertionan (xml-> z
-                      :ClinVarAssertion)             
-        id (xml1-> z
-                   :ClinVarAssertion
-                   (attr :ID))]
-        (map #(into {} (filter val {:clinicalassertionid (str id)
-                                    :citationid (some->(xml1-> % :ClinicalSignificance :Citation :ID) text)
-                                    :citationsource (xml1-> % :ClinicalSignificance :Citation :ID (attr :Source))
-                                    }))
-             assertionan)))
-                                   
-  
 
 (defn construct-clingen-import
   "Deconstruct a ClinVar Set into the region, alterations, and assertions"
@@ -96,7 +65,7 @@
           ;(construct-assertion-annot node)
           )))
 
-(defn clinvar-cnvs
+(defn parse-clinvar-xml
   "Import variants from ClinVar, filter for CNVs"
   [path]
   (with-open [st (io/reader path)

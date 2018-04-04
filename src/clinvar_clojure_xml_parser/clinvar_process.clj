@@ -53,17 +53,56 @@
                                }))
          scvs)))
 
+(defn construct-variation
+  "Construct variation nodes"
+  [node]
+  (let [z (zip/xml-zip node)
+        var (xml-> z :ReferenceClinVarAssertion)]
+        (map #(into {} (filter val {:variationid (some-> (xml1-> % :MeasureSet (attr :ID)))                                      
+                                    :variationname (some->
+                                                    (xml1-> % :MeasureSet 
+                                                              :Measure 
+                                                              :Name 
+                                                              :ElementValue) text)                                         
+                                    :variationtype (some-> (xml1-> % :MeasureSet (attr :Type)))                           
+                                    }))
+             var)))
+
+(defn construct-conditions
+  "Construct variation nodes"
+  [node]
+  (let [z (zip/xml-zip node)
+        conds (xml-> z :ReferenceClinVarAssertion)]
+        (map #(into {} (filter val {:medgencui (some-> (xml1-> % :TraitSet :Trait :XRef (attr :ID)))   
+                                    :mappingvalue (some->
+                                                    (xml1-> % :TraitSet
+                                                              :Trait 
+                                                              :Name 
+                                                              :ElementValue) text)                                         
+                                    :mappingref (some-> (xml1-> % :TraitSet
+                                                              :Trait 
+                                                              :XRef (attr :ID)))
+                                    :mappingtype (some-> (xml1-> % :TraitSet
+                                                               :Trait 
+                                                               :Name 
+                                                               :ElementValue (attr :Type)))
+                                    :traittype (some-> (xml1-> % :TraitSet
+                                                             :Trait 
+                                                             (attr :Type)))                                    
+                                    }))
+             conds)))
+
 (defn construct-clingen-import
   "Deconstruct a ClinVar Set into the region, alterations, and assertions"
   [node]
-  ;;(concat (conj (construct-clinicalassertion node)
-          ;(construct-assertion-method node)
-          ;(construct-assertion-annot node)
-          ;))
+  ;; {:clinicalassertion (construct-clinicalassertion node)
+  ;;  :variation (construct-variation node)
+  ;;  :conditions (construct-conditions node)}
   (concat (conj (construct-clinicalassertion node)
-          ;(construct-assertion-method node)
-          ;(construct-assertion-annot node)
-          )))
+                (construct-variation node))
+          (construct-conditions node)
+          ))
+
 
 (defn parse-clinvar-xml
   "Import variants from ClinVar, filter for CNVs"

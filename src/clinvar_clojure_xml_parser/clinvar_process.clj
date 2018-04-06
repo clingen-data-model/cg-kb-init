@@ -27,6 +27,7 @@
                    (attr :ID))]
     (map #(into {} (filter val {:clinicalassertionid (str id)
                                 :submitterid (some-> (xml1-> % :ClinVarAccession (attr :OrgID)))
+                                :submittername (some-> (xml1-> % :ClinVarSubmissionID (attr :submitter)))
                                 :submissiondate (some-> (xml1-> % :ClinVarSubmissionID (attr :submitterDate)))
                                 :dateupdated (some->
                                              (xml1-> % :ClinVarAccession (attr :DateUpdated)))
@@ -39,10 +40,14 @@
                                                      (xml1-> %  (attr :DateLastEvaluated)))                               
                                 :srecordstatus (xml1-> %
                                                       :RecordStatus
-                                                      text)                     
-                                :evidence
+                                                      text)   
+                                :clinicalsignificance
                                 (xml1-> % :ClinicalSignificance
                                             :Description
+                                            text) 
+                                :evidence
+                                (xml1-> % :ClinicalSignificance
+                                            :Comment
                                             text)                         
                                 :reviewstatus (xml1-> % :ClinicalSignificance :ReviewStatus text)
                                 :citationid (some->(xml1-> % :ClinicalSignificance :Citation :ID) text)
@@ -50,6 +55,10 @@
                                 :assertionmethod (some->(xml1-> % :AttributeSet :Attribute (attr= :Type "AssertionMethod")) text)
                                 :citationurl (some->(xml1-> % :AttributeSet :Citation :URL) text)
                                 :citationid2 (some->(xml1-> % :AttributeSet :Citation :ID) text)
+                                :citationtext (some->(xml1-> % :AttributeSet :Citation :CitationText) text)
+                                :methodtype (some->(xml1-> % :ObservedIn :Method :MethodType) text)
+                                :origin (some->(xml1-> % :ObservedIn :Sample :Origin) text)
+                                :modeofinheritance (some->(xml1-> % :AttributeSet :Attribute (attr= :Type "ModeOfInheritance")) text)
                                }))
          scvs)))
 
@@ -64,12 +73,13 @@
                                                               :Measure 
                                                               :Name 
                                                               :ElementValue) text)                                         
-                                    :variationtype (some-> (xml1-> % :MeasureSet (attr :Type)))                           
+                                    :variationtype (some-> (xml1-> % :MeasureSet (attr :Type)))
+                                    :species (some->(xml1-> % :ObservedIn :Sample :Species) text)
                                     }))
              var)))
 
 (defn construct-conditions
-  "Construct variation nodes"
+  "Construct conditions nodes"
   [node]
   (let [z (zip/xml-zip node)
         conds (xml-> z :ReferenceClinVarAssertion)]
@@ -92,26 +102,71 @@
                                     }))
              conds)))
 
+(defn construct-allele
+  "Construct allele nodes"
+  [node]
+  (let [z (zip/xml-zip node)
+        allele (xml-> z :ReferenceClinVarAssertion)]
+        (map #(into {} (filter val {:alleleid (some-> (xml1-> % :MeasureSet (attr :ID)))                                      
+                                    :alleletype (some->
+                                                    (xml1-> % :MeasureSet 
+                                                              :Measure 
+                                                              (attr :Type)))                                         
+                                    :allelename (some-> (xml1-> % :MeasureSet 
+                                                                :Measure
+                                                                :AttributeSet
+                                                                :Attribute
+                                                                (attr :Type)))
+                                    :allelestop (some-> (xml1-> % :MeasureSet 
+                                                                :Measure
+                                                                :SequenceLocation
+                                                                (attr :Stop)))
+                                    :allelestart (some-> (xml1-> % :MeasureSet 
+                                                                 :Measure
+                                                                 :SequenceLocation
+                                                                 (attr :Start)))
+                                    :allelechr (some-> (xml1-> % :MeasureSet 
+                                                               :Measure
+                                                               :SequenceLocation
+                                                               (attr :Chr)))
+                                    :haploinsufficiency (some-> (xml1-> % :MeasureSet 
+                                                               :Measure
+                                                               :MeasureRelationship
+                                                               :AttributeSet
+                                                               :Attriute
+                                                               (attr= :Type "Haploinsufficiency")))
+                                    :triplosensitivity (some-> (xml1-> % :MeasureSet 
+                                                               :Measure
+                                                               :MeasureRelationship
+                                                               :AttributeSet
+                                                               :Attriute
+                                                               (attr= :Type "Triplosensitivity")))
+                                    }))
+             allele)))
+
+
 (defn construct-clingen-import
   "Deconstruct a ClinVar Set into the region, alterations, and assertions"
   [node]
   ;; {:clinicalassertion (construct-clinicalassertion node)
   ;;  :variation (construct-variation node)
-  ;;  :conditions (construct-conditions node)}
-  (concat (conj (construct-clinicalassertion node)
-                (construct-variation node))
+  ;;  :conditions (construct-conditions node)
+  ;;  :allele (construct-allele node)}
+  (concat (construct-clinicalassertion node)
+          (construct-variation node)
           (construct-conditions node)
-          ))
+          (construct-allele node)))
 
 
 (defn parse-clinvar-xml
-  "Import variants from ClinVar, filter for CNVs"
+  "Import data from ClinVar and store it in an intermediate file"
   [path]
   (with-open [st (io/reader path)
               out (io/writer output-file)]
     (pprint   (->> st
                    xml/parse
                    :content 
-                   (take 5000)
+                   (take 50000)
                    (map construct-clingen-import)) out)))
+
 

@@ -1,4 +1,4 @@
-(ns chromatic_data.clinvar-process
+(ns chromatic-data.clinvarplus-process
   (:require [clojure.data.xml :as xml]
             [clojure.xml :as cxml]
             [clojure.java.io :as io]
@@ -49,12 +49,13 @@
                                 (xml1-> % :ClinicalSignificance
                                             :Comment
                                             text)                         
-                                :reviewstatus (xml1-> % :ClinicalSignificance :ReviewStatus text)
+                                :reviewstatus (some->(xml1-> % :ClinicalSignificance :ReviewStatus text))
                                 :citationid (some->(xml1-> % :ClinicalSignificance :Citation :ID) text)
                                 :citationsource (xml1-> % :ClinicalSignificance :Citation :ID (attr :Source))
                                 :assertionmethod (some->(xml1-> % :AttributeSet :Attribute (attr= :Type "AssertionMethod")) text)
                                 :citationurl (some->(xml1-> % :AttributeSet :Citation :URL) text)
                                 :citationid2 (some->(xml1-> % :AttributeSet :Citation :ID) text)
+                                :citationsource2 (some->(xml1-> % :AttributeSet :Citation :ID (attr :Source))) 
                                 :citationtext (some->(xml1-> % :AttributeSet :Citation :CitationText) text)
                                 :methodtype (some->(xml1-> % :ObservedIn :Method :MethodType) text)
                                 :origin (some->(xml1-> % :ObservedIn :Sample :Origin) text)
@@ -71,7 +72,7 @@
                    (attr :ID))
         var (xml-> z :ReferenceClinVarAssertion)]
         (map #(into {} (filter val {:clinicalassertionid (str id)
-                                    :variationid (some-> (xml1-> % :MeasureSet (attr :ID)))                                      
+                                    :variationid (some-> (xml1-> % :MeasureSet (attr :ID)))                                   
                                     :variationname (some->
                                                     (xml1-> % :MeasureSet  
                                                               :Name 
@@ -115,16 +116,16 @@
   (let [z (zip/xml-zip node)
         allele (xml-> z :ReferenceClinVarAssertion)]        
         (map #(into {} (filter val {:variationid (some-> (xml1-> % :MeasureSet (attr :ID)))
-             :alleleid (some-> (xml1-> % :MeasureSet (attr :ID)))                                      
+             :alleleid (some-> (xml1-> % :MeasureSet :Measure (attr :ID)))                                      
                                     :alleletype (some->
                                                     (xml1-> % :MeasureSet 
                                                               :Measure 
                                                               (attr :Type)))                                         
                                     :allelename (some-> (xml1-> % :MeasureSet 
                                                                 :Measure
-                                                                :AttributeSet
-                                                                :Attribute
-                                                                (attr :Type)))
+                                                                :Name
+                                                                :ElementValue
+                                                                (attr= :Type "Preferred"))text)
                                     :allelestop (some-> (xml1-> % :MeasureSet 
                                                                 :Measure
                                                                 :SequenceLocation

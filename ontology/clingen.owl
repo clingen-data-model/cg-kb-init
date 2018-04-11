@@ -66,14 +66,18 @@
 #    Classes
 #################################################################
 
-###  http://datamodel.clinicalgenome.org/terms/Autosomal_dominant_inheritance
-:Autosomal_dominant_inheritance rdf:type owl:Class ;
-                                rdfs:subClassOf :ModeOfInheritance .
+###  http://datamodel.clinicalgenome.org/terms/Affects
+:Affects rdf:type owl:Class ;
+         rdfs:subClassOf :ClinVarClinicalSignificance ;
+         rdfs:comment "Sourced from ClinVar value sets"@en ;
+         rdfs:label "Affects"@en .
 
 
-###  http://datamodel.clinicalgenome.org/terms/Autosomal_dominant_inheritance_with_maternal_imprinting
-:Autosomal_dominant_inheritance_with_maternal_imprinting rdf:type owl:Class ;
-                                                         rdfs:subClassOf :ModeOfInheritance .
+###  http://datamodel.clinicalgenome.org/terms/Benign
+:Benign rdf:type owl:Class ;
+        rdfs:subClassOf :ClinVarClinicalSignificance ;
+        rdfs:comment "Sourced from ClinVar value sets"@en ;
+        rdfs:label "Benign"@en .
 
 
 ###  http://datamodel.clinicalgenome.org/terms/CG_000000
@@ -817,9 +821,133 @@
            rdfs:label "protein_only"@en .
 
 
-###  http://datamodel.clinicalgenome.org/terms/ModeOfInheritance
-:ModeOfInheritance rdf:type owl:Class ;
-                   rdfs:label "ModeOfInheritance"@en .
+###  http://datamodel.clinicalgenome.org/terms/ClinVarClinicalSignificance
+:ClinVarClinicalSignificance rdf:type owl:Class ;
+                             rdfs:label "ClinVarClinicalSignificance"@en .
+
+
+###  http://datamodel.clinicalgenome.org/terms/ClinVarOrigin
+:ClinVarOrigin rdf:type owl:Class ;
+               rdfs:label "ClinVarOrigin"@en .
+
+
+###  http://datamodel.clinicalgenome.org/terms/Distinct_chromosomes
+:Distinct_chromosomes rdf:type owl:Class ;
+                      rdfs:subClassOf <http://purl.obolibrary.org/obo/SO_0001059> ;
+                      rdfs:comment "Sourced from ClinVar value sets"@en ;
+                      rdfs:label "Distinct_chromosomes"@en .
+
+
+###  http://datamodel.clinicalgenome.org/terms/Likely_benign
+:Likely_benign rdf:type owl:Class ;
+               rdfs:subClassOf :ClinVarClinicalSignificance ;
+               rdfs:comment "Sourced from ClinVar value sets"@en ;
+               rdfs:label "Likely_benign"@en .
+
+
+###  http://datamodel.clinicalgenome.org/terms/Likely_pathogenic
+:Likely_pathogenic rdf:type owl:Class ;
+                   rdfs:subClassOf :ClinVarClinicalSignificance ;
+                   rdfs:comment "Sourced from ClinVar value sets"@en ;
+                   rdfs:label "Likely_pathogenic"@en .
+
+
+###  http://datamodel.clinicalgenome.org/terms/Pathogenic
+:Pathogenic rdf:type owl:Class ;
+            rdfs:subClassOf :ClinVarClinicalSignificance ;
+            rdfs:comment "Sourced from ClinVar value sets"@en ;
+            rdfs:label "Pathogenic"@en .
+
+
+###  http://datamodel.clinicalgenome.org/terms/Phase_unknown
+:Phase_unknown rdf:type owl:Class ;
+               rdfs:subClassOf <http://purl.obolibrary.org/obo/SO_0001059> ;
+               rdfs:comment "Sourced from ClinVar value sets"@en ;
+               rdfs:label "Phase_unknown"@en .
+
+
+###  http://datamodel.clinicalgenome.org/terms/Uncertain_significance
+:Uncertain_significance rdf:type owl:Class ;
+                        rdfs:subClassOf :ClinVarClinicalSignificance ;
+                        rdfs:comment "Sourced from ClinVar value sets"@en ;
+                        rdfs:label "Uncertain_significance"@en .
+
+
+###  http://datamodel.clinicalgenome.org/terms/association
+:association rdf:type owl:Class ;
+             rdfs:subClassOf :ClinVarClinicalSignificance ;
+             rdfs:comment "Sourced from ClinVar value sets"@en ;
+             rdfs:label "association"@en .
+
+
+###  http://datamodel.clinicalgenome.org/terms/association_not_found
+:association_not_found rdf:type owl:Class ;
+                       rdfs:subClassOf :ClinVarClinicalSignificance ;
+                       rdfs:comment "Sourced from ClinVar value sets"@en ;
+                       rdfs:label "association_not_found"@en .
+
+
+###  http://datamodel.clinicalgenome.org/terms/biparental
+:biparental rdf:type owl:Class ;
+            rdfs:subClassOf :ClinVarOrigin ;
+            rdfs:comment "Sourced from ClinVar value sets"@en ;
+            rdfs:label "biparental"@en .
+
+
+###  http://datamodel.clinicalgenome.org/terms/confers_sensitivity
+:confers_sensitivity rdf:type owl:Class ;
+                     rdfs:subClassOf :ClinVarClinicalSignificance ;
+                     rdfs:comment "Sourced from ClinVar value sets"@en ;
+                     rdfs:label "confers_sensitivity"@en .
+
+
+###  http://datamodel.clinicalgenome.org/terms/conflicting_data_from_submitters
+:conflicting_data_from_submitters rdf:type owl:Class ;
+                                  rdfs:subClassOf :ClinVarClinicalSignificance ;
+                                  rdfs:comment "Sourced from ClinVar value sets"@en ;
+                                  rdfs:label "conflicting_data_from_submitters"@en .
+
+
+###  http://datamodel.clinicalgenome.org/terms/drug_response
+:drug_response rdf:type owl:Class ;
+               rdfs:subClassOf :ClinVarClinicalSignificance ;
+               rdfs:comment "Sourced from ClinVar value sets"@en ;
+               rdfs:label "drug_response"@en .
+
+
+###  http://datamodel.clinicalgenome.org/terms/not_provided
+:not_provided rdf:type owl:Class ;
+              rdfs:subClassOf :ClinVarClinicalSignificance ;
+              rdfs:comment "Sourced from ClinVar value sets"@en ;
+              rdfs:label "not_provided"@en .
+
+
+###  http://datamodel.clinicalgenome.org/terms/other
+:other rdf:type owl:Class ;
+       rdfs:subClassOf :ClinVarClinicalSignificance ;
+       rdfs:comment "Sourced from ClinVar value sets"@en ;
+       rdfs:label "other"@en .
+
+
+###  http://datamodel.clinicalgenome.org/terms/protective
+:protective rdf:type owl:Class ;
+            rdfs:subClassOf :ClinVarClinicalSignificance ;
+            rdfs:comment "Sourced from ClinVar value sets"@en ;
+            rdfs:label "protective"@en .
+
+
+###  http://datamodel.clinicalgenome.org/terms/risk_factor
+:risk_factor rdf:type owl:Class ;
+             rdfs:subClassOf :ClinVarClinicalSignificance ;
+             rdfs:comment "Sourced from ClinVar value sets"@en ;
+             rdfs:label "risk_factor"@en .
+
+
+###  http://datamodel.clinicalgenome.org/terms/uniparental
+:uniparental rdf:type owl:Class ;
+             rdfs:subClassOf :ClinVarOrigin ;
+             rdfs:comment "Sourced from ClinVar value sets"@en ;
+             rdfs:label "uniparental"@en .
 
 
 ###  http://purl.obolibrary.org/obo/SO_0000001
@@ -829,7 +957,7 @@
 
 ###  http://purl.obolibrary.org/obo/SO_0001059
 <http://purl.obolibrary.org/obo/SO_0001059> rdf:type owl:Class ;
-                                            rdfs:label "sequence_alteration" .
+                                            rdfs:label "ClinVarVariantType"@en .
 
 
 #################################################################

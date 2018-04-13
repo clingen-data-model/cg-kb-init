@@ -1,4 +1,4 @@
-(ns chromatic-data.clinvarplus-process
+(ns clinvar-clojure-xml-parser.clinvarplus-process
   (:require [clojure.data.xml :as xml]
             [clojure.xml :as cxml]
             [clojure.java.io :as io]
@@ -9,23 +9,17 @@
 
 
 (def cvxml "data/ClinVarFullRelease_2018-03.xml")
+;(def cvxml "data/sample.xml")
 (def output-file "data/clinvar.edn")
-
-(defn import-clinvar
-  "Read the ClinVar XML file, generate appropriate messages, and send to exchange"
-  []
-  (xml/parse (io/input-stream cvxml)))
+;(def output-file "data/sample.edn")
 
 (defn construct-clinicalassertion
   "Construct clinicalassertion table structure for import to neo"
   [node]
   (let [z (zip/xml-zip node)
         scvs (xml-> z
-                    :ClinVarAssertion)             
-        id (xml1-> z
-                   :ClinVarAssertion
-                   (attr :ID))]
-    (map #(into {} (filter val {:clinicalassertionid (str id)
+                    :ClinVarAssertion)]             
+    (map #(into {} (filter val {:clinicalassertionid (some-> (xml1-> % (attr :ID)))
                                 :submitterid (some-> (xml1-> % :ClinVarAccession (attr :OrgID)))
                                 :submittername (some-> (xml1-> % :ClinVarSubmissionID (attr :submitter)))
                                 :submissiondate (some-> (xml1-> % :ClinVarSubmissionID (attr :submitterDate)))
@@ -70,15 +64,15 @@
         id (xml1-> z
                    :ClinVarAssertion
                    (attr :ID))
-        var (xml-> z :ReferenceClinVarAssertion)]
-        (map #(into {} (filter val {:clinicalassertionid (str id)
-                                    :variationid (some-> (xml1-> % :MeasureSet (attr :ID)))                                   
+        var (xml-> z :ReferenceClinVarAssertion
+                     :MeasureSet)]
+        (map #(into {} (filter val {:clinicalassertionid id
+                                    :variationid (attr % :ID)
+                                    :variationtype (attr % :Type)
                                     :variationname (some->
-                                                    (xml1-> % :MeasureSet  
-                                                              :Name 
-                                                              :ElementValue (attr= :Type "Preferred")) text)                                        
-                                    :variationtype (some-> (xml1-> % :MeasureSet (attr :Type)))
-                                    :species (some->(xml1-> % :ObservedIn :Sample :Species) text)
+                                                    (xml1-> % :Name 
+                                                              :ElementValue (attr= :Type "Preferred")) text)                                                                            
+                                    :species (some->(xml1-> % :ReferenceClinVarAssertion :ObservedIn :Sample :Species) text)
                                     }))
              var)))
 
@@ -90,8 +84,8 @@
         id (xml1-> z
                    :ClinVarAssertion
                    (attr :ID))]
-        (map #(into {} (filter val {:clinicalassertionid (str id)
-                                    :medgencui (some-> (xml1-> % :TraitSet :Trait :XRef (attr :ID)))   
+        (map #(into {} (filter val {:clinicalassertionid id
+                                    :medgencui (some-> (xml1-> % :TraitSet :Trait :XRef (attr= :DB "MedGen"))(attr :ID))   
                                     :mappingvalue (some->
                                                     (xml1-> % :TraitSet
                                                               :Trait 
@@ -99,14 +93,11 @@
                                                               :ElementValue) text)                                         
                                     :mappingref (some-> (xml1-> % :TraitSet
                                                               :Trait 
-                                                              :XRef (attr :ID)))
-                                    :mappingtype (some-> (xml1-> % :TraitSet
-                                                               :Trait 
-                                                               :Name 
-                                                               :ElementValue (attr= :Type "Preferred"))text)
-                                    :traittype (some-> (xml1-> % :TraitSet
-                                                             :Trait 
-                                                             (attr :Type)))                                    
+                                                              :Name 
+                                                              :ElementValue (attr :Type)))                                                                  
+                                    :traittype (some-> (xml1-> % :TraitSet  (attr= :Type "Disease")
+                                                                 :Trait
+                                                                 (attr :Type)))                                    
                                     }))
              conds)))
 
@@ -114,45 +105,35 @@
   "Construct allele nodes"
   [node]
   (let [z (zip/xml-zip node)
-        allele (xml-> z :ReferenceClinVarAssertion)]        
-        (map #(into {} (filter val {:variationid (some-> (xml1-> % :MeasureSet (attr :ID)))
-             :alleleid (some-> (xml1-> % :MeasureSet :Measure (attr :ID)))                                      
-                                    :alleletype (some->
-                                                    (xml1-> % :MeasureSet 
-                                                              :Measure 
-                                                              (attr :Type)))                                         
-                                    :allelename (some-> (xml1-> % :MeasureSet 
-                                                                :Measure
-                                                                :Name
-                                                                :ElementValue
-                                                                (attr= :Type "Preferred"))text)
-                                    :allelestop (some-> (xml1-> % :MeasureSet 
-                                                                :Measure
-                                                                :SequenceLocation
-                                                                (attr :Stop)))
-                                    :allelestart (some-> (xml1-> % :MeasureSet 
-                                                                 :Measure
-                                                                 :SequenceLocation
-                                                                 (attr :Start)))
-                                    :allelechr (some-> (xml1-> % :MeasureSet 
-                                                               :Measure
-                                                               :SequenceLocation
-                                                               (attr :Chr)))
-                                    :haploinsufficiency (some-> (xml1-> % :MeasureSet 
-                                                               :Measure
-                                                               :MeasureRelationship
+        allele (xml-> z
+                    :ReferenceClinVarAssertion
+                    :MeasureSet
+                    :Measure)
+        varid (xml1-> z
+                      :ReferenceClinVarAssertion
+                      :MeasureSet
+                      (attr :ID))]       
+        (map #(into {} (filter val {:variationid varid
+                                    :alleleid (attr % :ID)                               
+                                    :alleletype (attr % :Type)
+                                    :allelename (some-> (xml1-> % :Name
+                                                                  :ElementValue
+                                                                  (attr= :Type "Preferred")) text)
+                                    :allelestop (some-> (xml1-> % :SequenceLocation
+                                                              (attr :Stop)))
+                                    :allelestart (some-> (xml1-> % :SequenceLocation
+                                                               (attr :Start)))
+                                    :allelechr (some-> (xml1-> % :SequenceLocation
+                                                                  (attr :Chr)))
+                                    :haploinsufficiency (some-> (xml1-> % :MeasureRelationship
                                                                :AttributeSet
                                                                :Attriute
                                                                (attr= :Type "Haploinsufficiency")))
-                                    :triplosensitivity (some-> (xml1-> % :MeasureSet 
-                                                               :Measure
-                                                               :MeasureRelationship
+                                    :triplosensitivity (some-> (xml1-> % :MeasureRelationship
                                                                :AttributeSet
                                                                :Attriute
-                                                               (attr= :Type "Triplosensitivity")))
-                                    }))
-             allele)))
-
+                                                               (attr= :Type "Triplosensitivity")))}))
+        allele)))
 
 (defn construct-clingen-import
   "Deconstruct a ClinVar Set into the region, alterations, and assertions"
@@ -166,7 +147,6 @@
           (construct-conditions node)
           (construct-allele node)))
 
-
 (defn parse-clinvar-xml
   "Import data from ClinVar and store it in an intermediate file"
   [path]
@@ -174,8 +154,8 @@
               out (io/writer output-file)]
     (pprint   (->> st
                    xml/parse
-                   :content 
-                   (take 5000)
-                   (map construct-clingen-import)) out)))
+                   :content
+                   (take 50000)
+                   (map construct-clingen-import))out)))
 
 

@@ -37,31 +37,29 @@
        ["FOREACH (x IN CASE WHEN $VariationID IS NULL THEN [] ELSE [1] END |
         MERGE (v:Variation {VariationID: $VariationID})
         ON CREATE SET 
-        v.VariationType = $VariationType,
-        v.Recordtype = $Recordtype,
         v.VariationAccession = $VariationAccession,
         v.Version = $Version,
         v.DateCreated = $DateCreated,
         v.DateLastUpdated = $DateLastUpdated,
         v.RecordStatus = $RecordStatus,
-        v.ClinvarClinsig = $ClinvarClinsig,
         v.DateLastEvaluated = $DateLastEvaluated,
-        v.ReviewStatus = $ReviewStatus,
-        v.Species = $Species,
         v.VariationName = $VariationName
         FOREACH (x IN CASE WHEN $RecordType IS NULL THEN [] ELSE [1] END |
         MERGE (rt:RecordType{RecordType: $RecordType})
         MERGE (v)-[:HAS_TYPE]->(rt))
-        FOREACH (x IN CASE WHEN $ClinvarClinsig IS NULL THEN [] ELSE [1] END |
-        MERGE(cs: ClinicalSignificance {ClinicalSignificance :$ClinvarClinsig})
+        FOREACH (x IN CASE WHEN $ClinicalSignificance IS NULL THEN [] ELSE [1] END |
+        MERGE(cs: ClinicalSignificance {ClinicalSignificance :$ClinicalSignificance})
         MERGE (v)-[:HAS_SIGNIFICANCE]->(cs))
         FOREACH (x IN CASE WHEN $VariationType IS NULL THEN [] ELSE [1] END |             
         MERGE (vt:VariationType {VariationType: $VariationType})          
-        MERGE (v)-[:HAS_TYPE]->(vt)))"
+        MERGE (v)-[:HAS_TYPE]->(vt))
+        FOREACH (x IN CASE WHEN $Species IS NULL THEN [] ELSE [1] END |             
+        MERGE (sp:Species {Species: $Species})          
+        MERGE (v)-[:IS_FOUND_IN]->(sp)))"
         {"VariationID" (:variationid i) "VariationName" (:variationname i) "VariationType" (:variationtype i) "AlleleName" (:allelename i)
-         "VariationAccession" (:variationaccession i) "Version" (:variationversion i) "Recordtype" (:vrecordtype i) "VariantLength" (:allelelength i)
+         "VariationAccession" (:variationaccession i) "Version" (:variationversion i) "VariantLength" (:allelelength i)
          "DateCreated" (:vdatecreated i) "DateLastUpdated" (:vdateLastupdated i) "RecordStatus" (:vrecordstatus i) "RecordType" (:vrecordtype i)
-         "ClinvarClinsig" (:clinvarclinsig i) "DateLastEvaluated" (:vdatelastevaluated i) "ReviewStatus" (:vreviewstatus i) 
+         "DateLastEvaluated" (:vdatelastevaluated i) "ReviewStatus" (:vreviewstatus i) 
          "Species" (:species i) "ClinicalSignificance" (:clinicalsignificance i) "AlleleID" (:alleleid i) "AlleleID2" (:alleleid2 i) "props" props}]))))
 
 (defn import-clinicalassertion
@@ -81,19 +79,12 @@
         a.SCVID= $SCVID,
         a.SCVVersion=$SCVVersion,
         a.SubmissionDate=$SubmissionDate,
-        a.DateUpdated=$DateUpdated
-        FOREACH (x IN CASE WHEN $CitationID IS NULL THEN [] ELSE [1] END |
-        MERGE(c:Citation {CitationID: $CitationID}) 
-        ON CREATE SET
-        c.CitationSource = $CitationSource      
-        MERGE (a)-[:IS_PUBLISHED_IN]->(c))  
+        a.DateUpdated=$DateUpdated,
+        a.Evidence = $Evidence,
+        a.DateLastEvaluated = $DateLastEvaluated
         MERGE (a)-[:HAS_SUBJECT]->(v)   
         FOREACH (x IN CASE WHEN $ClinicalSignificance IS NULL THEN [] ELSE [1] END |
         MERGE(cs: ClinicalSignificance {ClinicalSignificance:$ClinicalSignificance})
-        FOREACH (x IN CASE WHEN $Evidence IS NULL THEN [] ELSE [1] END | 
-        SET cs.Evidence = $Evidence)
-        FOREACH (x IN CASE WHEN $DateLastEvaluated IS NULL THEN [] ELSE [1] END | 
-        SET cs.DateLastEvaluated = $DateLastEvaluated)
         MERGE (a)-[:HAS_SIGNIFICANCE]->(cs))       
         MERGE (o:Observation {ClinicalAssertionID: $ClinicalAssertionID})
         MERGE (a)-[:BASED_ON]->(o)
@@ -147,7 +138,10 @@
      (neo/tx 
        ["MATCH (a:Assertion {ClinicalAssertionID: $ClinicalAssertionID})
         FOREACH (x IN CASE WHEN $CitationID IS NULL THEN [] ELSE [1] END |
-        MERGE (a)-[:IS_PUBLISHED_IN]->(:Citation {CitationID: $CitationID, CitationSource: $CitationSource}))"        
+        MERGE(c:Citation {CitationID: $CitationID}) 
+        ON CREATE SET
+        c.CitationSource = $CitationSource      
+        MERGE (a)-[:IS_PUBLISHED_IN]->(c))"        
         {"ClinicalAssertionID" (:clinicalassertionid i) "CitationID" (:citationid i) "CitationSource" (:citationsource i) "props" props}]))))
 
 ;Create Allele-Type relationships and add name to Allele nodes
@@ -220,8 +214,7 @@
          MERGE (c:Condition {Source: 'MedGen', SourceID: $MedgenCui})            
          MERGE (a)-[:IS_ASSOCIATED_WITH]->(c))
          FOREACH (x IN CASE WHEN $MappingValue IS NULL THEN [] ELSE [1] END |
-         MERGE (sc:Condition {Name:$MappingValue}) 
-         SET sc.TraitType = $TraitType               
+         MERGE (sc:Condition {Name:$MappingValue})               
          MERGE (a)-[:IS_SUBMITTER_ASSOCIATED_WITH]->(sc)
          FOREACH (x IN CASE WHEN $TraitType IS NULL THEN [] ELSE [1] END |
          MERGE (tt:Trait {TraitType: $TraitType})
@@ -271,8 +264,8 @@
            ;(create-indexes n session)
            (import-variation n session)
            (import-clinicalassertion n session)
+           (import-citation n session)
            (import-allels n session)
-           ;(import-haplotypeallels n session)
            (import-conditions n session)
            ;(import-region n session)
            ;(println (str "no match for " (:type n)))

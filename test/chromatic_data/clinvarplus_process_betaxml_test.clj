@@ -3,8 +3,8 @@
             [clojure.java.io :as io]
             [clojure.edn :as edn]
             [tupelo.core :as t]
-            [clinvar-clojure-xml-parser.core :refer :all]
-            [clinvar-clojure-xml-parser.clinvarplus-process-betaxml :as process])
+            [chromatic-data.core :refer :all]
+            [chromatic-data.clinvarplus-process-betaxml :as process])
   (:import java.io.PushbackReader
              java.util.UUID))
 

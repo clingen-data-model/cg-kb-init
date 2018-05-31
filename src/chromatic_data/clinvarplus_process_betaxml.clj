@@ -290,10 +290,12 @@
   [out-port out-file]
   (thread
     (with-open [f (io/writer out-file)]
-      (loop []
+      (loop [n 0]
+        (when (= 0 (mod n 1000))
+          (pprint n))
         (when-let [record (<!! out-port)]
           (pprint record f)
-          (recur))))))
+          (recur (+ n 1)))))))
 
 (defn parse-clinvar-xml
   "Import data from ClinVar and store it in an intermediate file"
@@ -303,7 +305,7 @@
           edn-records (chan)]
       (pipeline 2 edn-records (map construct-clingen-import) xml-records)
       (write-cvp-recs edn-records output-file)
-      (doseq [r (take 50 (->> st xml/parse :content))]
+      (doseq [r (take 500 (->> st xml/parse :content))]
         (let [z (zip/xml-zip r)]
           (>!! xml-records z)))
       ;; For some reason I can't fix the race condition where the stream closes

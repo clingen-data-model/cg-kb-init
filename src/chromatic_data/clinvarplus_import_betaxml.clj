@@ -2,39 +2,38 @@
   (:require [clojure.java.io :as io]
             [chromatic-data.neo4j :as neo]
             [clojure.edn :as edn]
-            [clojure.walk :as walk])
+            [clojure.walk :as walk]
+            [clojure.pprint :as pp :refer [pprint]])
   (:import java.io.PushbackReader
            java.util.UUID))
 
 (defn create-constraints
   "Create-constraints"
-  [i session]     
-  (let [props (walk/stringify-keys (dissoc i :clinicalassertionid :alleleid :variationid))]
-    (.writeTransaction 
-     session 
-     (neo/tx 
-       ["CREATE CONSTRAINT ON (a:Assertion) ASSERT a.SCVID IS UNIQUE"]))))
+  [session]     
+  (.writeTransaction 
+   session 
+   (neo/tx 
+    ["CREATE CONSTRAINT ON (a:Assertion) ASSERT a.SCVID IS UNIQUE"])))
 
 (defn create-indexes
   "Create-indexes"
-  [i session]     
-  (let [props (walk/stringify-keys (dissoc i :scvid :clinicalassertionid))]
-    (.writeTransaction 
-     session 
-     (neo/tx 
-       ["CREATE INDEX ON :State(RecordStatus)
+  [session]     
+  (.writeTransaction 
+   session 
+   (neo/tx 
+    ["CREATE INDEX ON :State(RecordStatus)
          CREATE INDEX ON :Level(ReviewStatus)
          CREATE INDEX ON :ClinicalSignificance(ClinicalSignificance)
-         CREATE INDEX ON :AssertionType(AssertionType)"]))))
+         CREATE INDEX ON :AssertionType(AssertionType)"])))
 
 (defn import-variation
-   "Import variation"
+  "Import variation"
   [i session]
   (let [props (walk/stringify-keys (dissoc i :variationid))]
     (.writeTransaction 
      session 
      (neo/tx 
-       ["FOREACH (x IN CASE WHEN $VariationID IS NULL THEN [] ELSE [1] END |
+      ["FOREACH (x IN CASE WHEN $VariationID IS NULL THEN [] ELSE [1] END |
         MERGE (v:Variation {VariationID: $VariationID})
         ON CREATE SET 
         v.VariationAccession = $VariationAccession,
@@ -56,11 +55,11 @@
         FOREACH (x IN CASE WHEN $Species IS NULL THEN [] ELSE [1] END |             
         MERGE (sp:Species {Species: $Species})          
         MERGE (v)-[:IS_FOUND_IN]->(sp)))"
-        {"VariationID" (:variationid i) "VariationName" (:variationname i) "VariationType" (:variationtype i) "AlleleName" (:allelename i)
-         "VariationAccession" (:variationaccession i) "Version" (:variationversion i) "VariantLength" (:allelelength i)
-         "DateCreated" (:vdatecreated i) "DateLastUpdated" (:vdateLastupdated i) "RecordStatus" (:vrecordstatus i) "RecordType" (:vrecordtype i)
-         "DateLastEvaluated" (:vdatelastevaluated i) "ReviewStatus" (:vreviewstatus i) 
-         "Species" (:species i) "ClinicalSignificance" (:clinicalsignificance i) "AlleleID" (:alleleid i) "AlleleID2" (:alleleid2 i) "props" props}]))))
+       {"VariationID" (:variationid i) "VariationName" (:variationname i) "VariationType" (:variationtype i) "AlleleName" (:allelename i)
+        "VariationAccession" (:variationaccession i) "Version" (:variationversion i) "VariantLength" (:allelelength i)
+        "DateCreated" (:vdatecreated i) "DateLastUpdated" (:vdateLastupdated i) "RecordStatus" (:vrecordstatus i) "RecordType" (:vrecordtype i)
+        "DateLastEvaluated" (:vdatelastevaluated i) "ReviewStatus" (:vreviewstatus i) 
+        "Species" (:species i) "ClinicalSignificance" (:clinicalsignificance i) "AlleleID" (:alleleid i) "AlleleID2" (:alleleid2 i) "props" props}]))))
 
 (defn import-clinicalassertion
   "Import clinicalassertion"
@@ -257,16 +256,21 @@
     (neo/session
      [session]
      (let [interps (edn/read r)]
-       (doseq [i interps]
-         (doseq [n i]
-           ;(case (:type n)
-           ;(create-constraints n session)
-           ;(create-indexes n session)
-           (import-variation n session)
-           (import-clinicalassertion n session)
-           (import-citation n session)
-           (import-allels n session)
-           (import-conditions n session)
-           ;(import-region n session)
-           ;(println (str "no match for " (:type n)))
-       ))))))
+       (doseq [n interps]
+         (import-variation n session)
+         (import-clinicalassertion n session)
+         (import-citation n session)
+         (import-allels n session)
+         (import-conditions n session)
+                                        ;(import-region n session)
+                                        ;(println (str "no match for " (:type n)))
+         )))))
+
+
+(defn configure-schema
+  "Perform inital setup of constraints and indexes"
+  []
+  (neo/session
+   [session]
+   (create-constraints session)
+   (create-indexes session)))

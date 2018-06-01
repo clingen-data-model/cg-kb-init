@@ -305,7 +305,7 @@
           edn-records (chan)]
       (pipeline 2 edn-records (map construct-clingen-import) xml-records)
       (write-cvp-recs edn-records output-file)
-      (doseq [r (take 500 (->> st xml/parse :content))]
+      (doseq [r (take 5 (->> st xml/parse :content))]
         (let [z (zip/xml-zip r)]
           (>!! xml-records z)))
       ;; For some reason I can't fix the race condition where the stream closes

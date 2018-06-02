@@ -12,9 +12,13 @@
 
 
 (def cvxml "data/variation_archive_20180418.xml")
-;(def cvxml "data/sample.xml")
+;;(def cvxml "data/sample.xml")
 (def output-file "data/clinvarbeta.edn")
-;(def output-file "data/sample.edn")
+;;(def output-file "data/sample.edn")
+
+
+(def batch-size 1000)
+
 
 (defn clinsig=
   "returns nil unless variant type equals the argument"
@@ -285,29 +289,48 @@
    (construct-includedallele node)
    (construct-regions node)))
 
-(defn write-cvp-recs
-  "Asynchronously write records to output file"
-  [out-port out-file]
+(defn write-cvp-file
+  "Emit a file containing records"
+  [records out-file]
   (thread
     (with-open [f (io/writer out-file)]
-      (loop [n 0]
-        (when (= 0 (mod n 1000))
-          (pprint n))
-        (when-let [record (<!! out-port)]
-          (pprint record f)
-          (recur (+ n 1)))))))
+      (pprint records f))))
+
+(defn write-cvp-recs
+  "Asynchronously write records to output file"
+  [out-port]
+  (loop [n 0
+         recs ()]
+    (let [record (<!! out-port)]
+      (if-not record
+        (write-cvp-file recs (str "data/cvp/cvp-batch-" n ".edn"))
+        (let [end-batch? (and (= 0 (mod n batch-size)) (< 0 n))]
+          (when end-batch?
+            (pprint n)
+            (write-cvp-file (conj recs record) (str "data/cvp/cvp-batch-" n ".edn")))
+          (recur (+ n 1)
+                 (if end-batch? () (conj recs record))))))))
+
+(defn read-cvp-recs
+  [xml-reader in-port]
+  (thread
+    (doseq [r (->> xml-reader xml/parse :content)]
+      (let [z (zip/xml-zip r)]
+        (>!! in-port z)))
+    (close! in-port)))
 
 (defn parse-clinvar-xml
   "Import data from ClinVar and store it in an intermediate file"
   [path]
   (with-open [st (io/reader path)]
-    (let [xml-records (chan)
+    (let [xml-records (chan 10)
           edn-records (chan)]
-      (pipeline 2 edn-records (map construct-clingen-import) xml-records)
-      (write-cvp-recs edn-records output-file)
-      (doseq [r (take 5 (->> st xml/parse :content))]
-        (let [z (zip/xml-zip r)]
-          (>!! xml-records z)))
+      (println "Starting to write clinvar-plus to channel")
+      (read-cvp-recs st xml-records)
+      (println "Starting tranformation pipeline")
+      (pipeline 16 edn-records (map construct-clingen-import) xml-records)
+      (println "Writing cvp recs to files")
+      (write-cvp-recs edn-records)
       ;; For some reason I can't fix the race condition where the stream closes
       ;; before thread operations are complete. This is an ugly hack, but it
       ;; solves the problem

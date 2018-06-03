@@ -251,21 +251,28 @@
 
 (defn import-clinvar-data
   "Import ClinVar CNVs from intermediate format in EDN"
-  []
-  (with-open [r (PushbackReader. (io/reader "data/clinvarbeta.edn"))]
+  [file]
+  (with-open [r (PushbackReader. (io/reader file))]
     (neo/session
      [session]
      (let [interps (edn/read r)]
-       (doseq [n interps]
-         (import-variation n session)
-         (import-clinicalassertion n session)
-         (import-citation n session)
-         (import-allels n session)
-         (import-conditions n session)
-                                        ;(import-region n session)
-                                        ;(println (str "no match for " (:type n)))
-         )))))
+       (doseq [n interps
+               i n]
+         (import-variation i session)
+         (import-clinicalassertion i session)
+         (import-citation i session)
+         (import-allels i session)
+         (import-conditions i session))))))
 
+(defn import-clinvar-interps
+  "Import all interpretation files in data/cvp directory"
+  []
+  (let [dir (io/file "data/cvp")
+        cvp-files (filter #(re-find #"cvp-batch-\d+\.edn" (.getName %))
+                          (file-seq dir))]
+    (doseq [f cvp-files]
+      (println f)
+      (import-clinvar-data f))))
 
 (defn configure-schema
   "Perform inital setup of constraints and indexes"

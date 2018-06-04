@@ -293,8 +293,7 @@
   "Emit a file containing records"
   [records out-file]
   (thread
-    (with-open [f (io/writer out-file)]
-      (pprint records f))))
+    (spit out-file (prn-str records))))
 
 (defn write-cvp-recs
   "Asynchronously write records to output file"

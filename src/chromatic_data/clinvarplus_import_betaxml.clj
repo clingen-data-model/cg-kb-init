@@ -249,20 +249,30 @@
        {"Regionid" (:regionid i) "AlleleID1" (:alleleid1 i) "ReferenceAllele" (:reference_allele i) "Assembly" (:assembly i)
         "AlternateAllele" (:alternate_allele i) "Chr" (:chromosome i) "Start" (:start i) "Stop" (:stop i) "props" props}]))))
 
+(defn import-clinvar-record
+  "Import a single ClinVar interpretation record into Neo4j"
+  [record session]
+  (when (instance? clojure.lang.Symbol record)
+    (println record))
+  (doseq [item record]
+    (import-variation item session)
+    (import-clinicalassertion item session)
+    (import-citation item session)
+    (import-allels item session)
+    (import-conditions item session)))
+
 (defn import-clinvar-data
   "Import ClinVar CNVs from intermediate format in EDN"
   [file]
+  (println file)
   (with-open [r (PushbackReader. (io/reader file))]
     (neo/session
      [session]
      (let [interps (edn/read r)]
-       (doseq [n interps
-               i n]
-         (import-variation i session)
-         (import-clinicalassertion i session)
-         (import-citation i session)
-         (import-allels i session)
-         (import-conditions i session))))))
+       (println (count interps))
+       (doseq [n interps]
+         (import-clinvar-record n session))
+       ))))
 
 (defn import-clinvar-interps
   "Import all interpretation files in data/cvp directory"
@@ -270,8 +280,7 @@
   (let [dir (io/file "data/cvp")
         cvp-files (filter #(re-find #"cvp-batch-\d+\.edn" (.getName %))
                           (file-seq dir))]
-    (doseq [f cvp-files]
-      (println f)
+    (doseq [f (take 5 cvp-files)]
       (import-clinvar-data f))))
 
 (defn configure-schema

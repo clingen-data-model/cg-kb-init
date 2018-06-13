@@ -280,7 +280,7 @@
   (let [dir (io/file "data/cvp")
         cvp-files (filter #(re-find #"cvp-batch-\d+\.edn" (.getName %))
                           (file-seq dir))]
-    (doseq [f (take 5 cvp-files)]
+    (doseq [f  cvp-files]
       (import-clinvar-data f))))
 
 (defn configure-schema

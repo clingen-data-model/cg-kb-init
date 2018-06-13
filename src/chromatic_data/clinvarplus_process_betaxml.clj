@@ -17,7 +17,7 @@
 ;;(def output-file "data/sample.edn")
 
 
-(def batch-size 1000)
+(def batch-size 100)
 
 
 (defn clinsig=

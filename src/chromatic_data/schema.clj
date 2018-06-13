@@ -7,6 +7,7 @@
                   ["RDFClass" "iri"]
                   ["Agent" "uuid"]
                   ["Gene" "uuid"]
+                  ["Assertion" "iri"]
                   ["ActionabilityAssertion" "uuid"]
                   ["ActionabilityInterventionAssertion" "uuid"]
                   ["ActionabilityScore" "uuid"]

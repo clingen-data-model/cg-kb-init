@@ -120,6 +120,7 @@ merge (a:" label  " {perm_id: {permid}}) on create set a.uuid = {id} merge (a)-[
         score-json (curation "scoreJsonSerialized")
         score-json-sop5 (curation "scoreJsonSerializedSop5")
         date (curation "dateISO8601")]
+    (println interp-iri)
     (.run session "match (a:Assertion {perm_id: {id}}), (i:RDFClass {iri: {interp}}) merge (a)-[:has_predicate]->(i) set a.score_string = {scorejson} set a.score_string_sop5 = {scorejsonsop5} set a.date = {date}"
           {"interp" interp-iri, "scorejson" score-json, "scorejsonsop5" score-json-sop5,
            "id" perm-id, "date" date})))

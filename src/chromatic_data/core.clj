@@ -7,7 +7,8 @@
             ;;[chromatic-data.region :as region]
             [chromatic-data.cg-knowledge :as cg-kb]
             [chromatic-data.clinvar-import :as cv]
-            [chromatic-data.sv :as sv])
+            [chromatic-data.sv :as sv]
+            [chromatic-data.clinvarplus-process-betaxml :as cvp])
   (:gen-class))
 
 (defn -main

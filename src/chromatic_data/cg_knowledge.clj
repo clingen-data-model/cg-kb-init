@@ -10,7 +10,8 @@
             [chromatic-data.pw-curation-import :as pw]
             [chromatic-data.ncbi-dosage-import :as dosage]
             [chromatic-data.clinvar-process :as cv-proc]
-            [chromatic-data.clinvar-import :as cv-import])
+            [chromatic-data.clinvar-import :as cv-import]
+            [chromatic-data.omim :as omim])
   (:import java.io.PushbackReader))
 
 ;; List of external assets to retrieve and the method to be used to import them
@@ -26,6 +27,7 @@
    ["http://purl.obolibrary.org/obo/doid.owl" "data/doid.owl" :update-ontology]
    ;;["http://data.bioontology.org/ontologies/RXNORM/submissions/12/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb" "data/rxnorm.ttl" :import-ontology-classes]
    ["https://www.clinicalgenome.org/curated-json-for-search/" "data/curated-json-for-search.json" :pw-curations]
+   ["https://data.omim.org/downloads/U7rx7IRhSIah-gm1M-yBDA/genemap2.txt" "data/genemap2.txt" :omim-genes]
    ;;["ftp://ftp.ncbi.nlm.nih.gov/pub/dbVar/clingen/ClinGen_gene_curation_list.tsv" "data/ClinGen_gene_curation_list.tsv" :gene-dosage]
    ])
 
@@ -36,7 +38,8 @@
    :pw-curations pw/import-cg-data
    :gene-dosage dosage/import-gene-dosage
    :import-ontology-classes owl/import-ontology-classes
-   :import-exons gene/create-exons})
+   :import-exons gene/create-exons
+   :omim-genes omim/import-genemap2})
 
 
 (def post-update-queries

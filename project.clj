@@ -14,7 +14,7 @@
                  [cheshire "5.7.1"]
                  ;; [circleci/clj-yaml "0.5.5"]
                  ;; [clj-http "2.1.0"]
-                 [org.neo4j.driver/neo4j-java-driver "1.4.2"]
+                 [org.neo4j.driver/neo4j-java-driver "1.6.1"]
                  [org.apache.kafka/kafka-clients "0.10.1.0"]
                  [org.clojure/data.xml "0.1.0-beta2"]
                  [org.clojure/data.zip "0.1.2"]
@@ -24,6 +24,7 @@
                  [org.eclipse.rdf4j/rdf4j-runtime "2.2.2"]
                  [grafter "0.9.0"]]
   :resource-paths ["resources/sqyljdbc4.jar" "resources/sqljdbc.jar"]
+  :jvm-opts ["-Djava.util.logging.config.file=logging.properties"]
   :main ^:skip-aot chromatic-data.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})

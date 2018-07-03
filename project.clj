@@ -6,12 +6,12 @@
   :repositories {"local" ~(str (.toURI (java.io.File. "maven_repository")))}
   :plugins [[lein-localrepo "0.5.3"]]
   :dependencies [[org.clojure/clojure "1.8.0"]
+                 [cheshire "5.8.0"]
                  [org.clojure/data.json "0.2.6"]
                  [org.clojure/java.jdbc "0.5.0"]
                  [clojure-csv/clojure-csv "2.0.1"]
                  [net.sourceforge.owlapi/owlapi-distribution "4.2.5"]
                  [org.semanticweb.elk/elk-distribution "0.4.3"]
-                 [cheshire "5.7.1"]
                  ;; [circleci/clj-yaml "0.5.5"]
                  ;; [clj-http "2.1.0"]
                  [org.neo4j.driver/neo4j-java-driver "1.6.1"]

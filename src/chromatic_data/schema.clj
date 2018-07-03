@@ -24,7 +24,8 @@
                   ["Variation" "iri"]
                   ["RegionContext" "iri"]
                   ["Interpretation" "iri"]
-                  ["GeneDosageAssertion" "iri"]])
+                  ["GeneDosageAssertion" "iri"]
+                  ["Agent" "iri"]])
 
 (def indexes [["Agent" "facebook_token"]
               ["Agent" "email"]

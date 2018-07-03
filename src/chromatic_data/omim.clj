@@ -23,18 +23,16 @@
 
 (defn import-genemap2
   "Import omim-provided genemap2 file into neo4j"
-  []
-  (let [path "data/genemap2.txt"]
-      (println "importing genemap2")
-    (let [csv (-> path io/reader (csv/parse-csv :delimiter \tab))
-          titles (nth csv 3)
-          recs (drop 4 csv)
-          gene-pheno-list (vec (filter #(and (not= "" (first %)) (second %))
-                                       (map entrez-to-pheno recs)))]
-      (neo/session
-       [session]
-       (.run session "UNWIND $recs as r
+  [path]
+  (let [csv (-> path io/reader (csv/parse-csv :delimiter \tab))
+        titles (nth csv 3)
+        recs (drop 4 csv)
+        gene-pheno-list (vec (filter #(and (not= "" (first %)) (second %))
+                                     (map entrez-to-pheno recs)))]
+    (neo/session
+     [session]
+     (.run session "UNWIND $recs as r
     MATCH (g:Gene {entrez_id: r[0]})
     MATCH (c:RDFClass) WHERE c.iri in r[1]
     MERGE (g)-[:has_related_phenotype]->(c)"
-             {"recs" gene-pheno-list})))))
+           {"recs" gene-pheno-list}))))

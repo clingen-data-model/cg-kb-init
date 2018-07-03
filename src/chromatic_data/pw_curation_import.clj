@@ -133,5 +133,5 @@ merge (a:" label  " {perm_id: {permid}}) on create set a.uuid = {id} merge (a)-[
      (doseq [curation-record data]
        (let [type ((second curation-record) "type")]
          (case type
-           "actionability" (import-actionability curation-record session)
+           "actionability" (println "skipping actionability curation")
            "clinicalValidity" (import-gene-disease curation-record session)))))))

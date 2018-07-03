@@ -17,17 +17,17 @@
 ;; List of external assets to retrieve and the method to be used to import them
 (def external-data
   [
-   ["https://github.com/The-Sequence-Ontology/SO-Ontologies/raw/master/so.owl" "data/so.owl" :import-ontology]
-   ["https://files.osf.io/v1/resources/2qk53/providers/osfstorage/59e84168594d9002620e8b76?action=download&version=12&direct" "data/mondo.owl" :import-ontology]
-   ["ftp://ftp.ebi.ac.uk/pub/databases/genenames/new/json/locus_groups/protein-coding_gene.json" "data/protein-coding_gene.json" :import-genes]
+   ;;["https://github.com/The-Sequence-Ontology/SO-Ontologies/raw/master/so.owl" "data/so.owl" :import-ontology]
+   ;;["https://files.osf.io/v1/resources/2qk53/providers/osfstorage/59e84168594d9002620e8b76?action=download&version=12&direct" "data/mondo.owl" :import-ontology]
+   ;;["ftp://ftp.ebi.ac.uk/pub/databases/genenames/new/json/locus_groups/protein-coding_gene.json" "data/protein-coding_gene.json" :import-genes]
                                         ;["http://www.ensembl.org/biomart/martservice?query=%3C?xml%20version=%221.0%22%20encoding=%22UTF-8%22?%3E%3C!DOCTYPE%20Query%3E%3CQuery%20%20virtualSchemaName%20=%20%22default%22%20formatter%20=%20%22CSV%22%20header%20=%20%220%22%20uniqueRows%20=%20%221%22%20count%20=%20%22%22%20datasetConfigVersion%20=%20%220.6%22%20%3E%3CDataset%20name%20=%20%22hsapiens_gene_ensembl%22%20interface%20=%20%22default%22%20%3E%3CFilter%20name%20=%20%22biotype%22%20value%20=%20%22protein_coding%22/%3E%3CAttribute%20name%20=%20%22ensembl_gene_id%22%20/%3E%3CAttribute%20name%20=%20%22exon_chrom_start%22%20/%3E%3CAttribute%20name%20=%20%22exon_chrom_end%22%20/%3E%3CAttribute%20name%20=%20%22rank%22%20/%3E%3CAttribute%20name%20=%20%22ensembl_exon_id%22%20/%3E%3C/Dataset%3E%3C/Query%3E" "data/ensembl-gene-exons.csv" :import-exons]
                                         ; ["ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/xml/ClinVarFullRelease_00-latest.xml.gz" "data/clinvar.xml.gz" :import-clinvar]
-   ["http://www.orphadata.org/data/ORDO/ordo_orphanet.owl.zip" "data/ordo_orphanet.owl.zip" :update-ontology]
+   ;;["http://www.orphadata.org/data/ORDO/ordo_orphanet.owl.zip" "data/ordo_orphanet.owl.zip" :update-ontology]
    
-   ["http://purl.obolibrary.org/obo/doid.owl" "data/doid.owl" :update-ontology]
+   ;;["http://purl.obolibrary.org/obo/doid.owl" "data/doid.owl" :update-ontology]
    ;;["http://data.bioontology.org/ontologies/RXNORM/submissions/12/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb" "data/rxnorm.ttl" :import-ontology-classes]
    ["https://www.clinicalgenome.org/curated-json-for-search/" "data/curated-json-for-search.json" :pw-curations]
-   ["https://data.omim.org/downloads/U7rx7IRhSIah-gm1M-yBDA/genemap2.txt" "data/genemap2.txt" :omim-genes]
+   ;;["https://data.omim.org/downloads/U7rx7IRhSIah-gm1M-yBDA/genemap2.txt" "data/genemap2.txt" :omim-genes]
    ;;["ftp://ftp.ncbi.nlm.nih.gov/pub/dbVar/clingen/ClinGen_gene_curation_list.tsv" "data/ClinGen_gene_curation_list.tsv" :gene-dosage]
    ])
 
@@ -44,8 +44,8 @@
 
 (def post-update-queries
   ;; TODO update to reflect disease grouping around MONDO ids
-  ["match (c:RDFClass)<-[:subClassOf*1..6]-(s:RDFClass) where c.iri ends with 'DOID_4' and (s.iri starts with 'http://purl.obolibrary.org/obo/DOID' or s.iri contains 'ORDO' or s.iri contains 'OMIM')  set s :Disease:Condition"
-   "match (c:RDFClass {iri: 'http://purl.obolibrary.org/obo/MONDO_0000001'})<-[:subClassOf*1..6]-(s:RDFClass) where s.iri starts with 'http://purl.obolibrary.org/obo/MONDO' set s :DiseaseConcept:Disease:Condition"
+  ["match (s:RDFClass) where s.iri starts with 'http://purl.obolibrary.org/obo/MONDO' set s :DiseaseConcept:Disease:Condition"
+   "match (g:GeneDiseaseAssertion)-[rel:has_object]->(r:RDFClass)-[:equivalentTo]-(d:DiseaseConcept) merge (g)-[:has_object]->(d) delete rel"
    "match (c:RDFClass)<-[:has_object]-(a:Assertion) set c :Disease:Condition"
    "match (c:RDFClass {iri: 'http://datamodel.clinicalgenome.org/terms/CG_000001'})<-[:subClassOf*]-(s:RDFClass) set s :Interpretation"
    "match (c:RDFClass) where c.iri contains 'RXNORM' set c :Drug"

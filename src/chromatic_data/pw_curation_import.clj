@@ -112,6 +112,7 @@ merge (a:" label  " {perm_id: {permid}}) on create set a.uuid = {id} merge (a)-[
 (defn import-gene-disease
   "import gene disease curation"
   [record session]
+  ;;(clojure.pprint/pprint record)
   (let [perm-id (first record)
         curation (second record)
         id (create-gene-disease-node curation session "GeneDiseaseAssertion:Assertion:Entity" perm-id)

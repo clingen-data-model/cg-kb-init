@@ -3,6 +3,8 @@
             [clojure.java.shell :as sh])
   (:import [org.neo4j.driver.v1 Driver GraphDatabase AuthTokens Session StatementResult Record TransactionWork]))
 
+(def driver-inst (GraphDatabase/driver (System/getenv "NEO4J_SERVER_PATH") (AuthTokens/basic (System/getenv "NEO4J_USER") (System/getenv "NEO4J_PASS"))))
+
 (def neo4j-import-path (str 
                         (or (System/getenv "NEO4J_PATH")  "/usr/share/neo4j")
                         "/import/"))
@@ -28,17 +30,21 @@
       "NULL" nil
       v)))
 
+(defn create-session
+  "Return a new session given the instance of driver specified in class"
+  []
+  (.session driver-inst))
+
 ;; Create a neo4j session, do something in it, clean up after
 (defmacro session
   "Connect to neo4j, make driver and session accessible to code
   clean up after"
   [[s] & body]
-  `(let [driver# (GraphDatabase/driver (System/getenv "NEO4J_SERVER_PATH") (AuthTokens/basic (System/getenv "NEO4J_USER") (System/getenv "NEO4J_PASS")))
+  `(let [driver# driver-inst
          ~s (.session driver#)
          result# (do ~@body)]
 
      (.close ~s)
-     (.close driver#)
      result#))
 
 (defn query

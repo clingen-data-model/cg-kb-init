@@ -1,976 +1,1452 @@
-@prefix : <http://datamodel.clinicalgenome.org/terms/> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix xml: <http://www.w3.org/XML/1998/namespace> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <http://datamodel.clinicalgenome.org/terms/> .
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://datamodel.clinicalgenome.org/terms/"
+     xml:base="http://datamodel.clinicalgenome.org/terms/"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://datamodel.clinicalgenome.org/terms/"/>
+    
 
-<http://datamodel.clinicalgenome.org/terms/> rdf:type owl:Ontology .
 
-#################################################################
-#    Annotation properties
-#################################################################
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000062
-:CG_000062 rdf:type owl:AnnotationProperty ;
-           rdfs:label "score"@en .
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000104
-:CG_000104 rdf:type owl:AnnotationProperty ;
-           rdfs:label "short_label"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000062 -->
 
+    <owl:AnnotationProperty rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000062">
+        <rdfs:label xml:lang="en">score</rdfs:label>
+    </owl:AnnotationProperty>
+    
 
-#################################################################
-#    Object Properties
-#################################################################
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000113
-:CG_000113 rdf:type owl:ObjectProperty ;
-           rdfs:subPropertyOf <http://purl.obolibrary.org/obo/SEPIO_0000026> ;
-           rdfs:label "has_gene"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000104 -->
 
+    <owl:AnnotationProperty rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000104">
+        <rdfs:label xml:lang="en">short_label</rdfs:label>
+    </owl:AnnotationProperty>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000114
-:CG_000114 rdf:type owl:ObjectProperty ;
-           rdfs:subPropertyOf <http://purl.obolibrary.org/obo/SEPIO_0000028> ;
-           rdfs:label "has_interpretation"@en .
 
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000115
-:CG_000115 rdf:type owl:ObjectProperty ;
-           rdfs:subPropertyOf <http://purl.obolibrary.org/obo/SEPIO_0000027> ;
-           rdfs:label "has_phenotype"@en .
+    
 
 
-###  http://purl.obolibrary.org/obo/SEPIO_0000026
-<http://purl.obolibrary.org/obo/SEPIO_0000026> rdf:type owl:ObjectProperty ;
-                                               rdfs:subPropertyOf owl:topObjectProperty ;
-                                               rdfs:label "has_subject" .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000113 -->
 
+    <owl:ObjectProperty rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000113">
+        <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/SEPIO_0000026"/>
+        <rdfs:label xml:lang="en">has_gene</rdfs:label>
+    </owl:ObjectProperty>
+    
 
-###  http://purl.obolibrary.org/obo/SEPIO_0000027
-<http://purl.obolibrary.org/obo/SEPIO_0000027> rdf:type owl:ObjectProperty ;
-                                               rdfs:subPropertyOf owl:topObjectProperty ;
-                                               rdfs:label "has_object" .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000114 -->
 
-###  http://purl.obolibrary.org/obo/SEPIO_0000028
-<http://purl.obolibrary.org/obo/SEPIO_0000028> rdf:type owl:ObjectProperty ;
-                                               rdfs:subPropertyOf owl:topObjectProperty ;
-                                               rdfs:label "has_predicate" .
+    <owl:ObjectProperty rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000114">
+        <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/SEPIO_0000028"/>
+        <rdfs:label xml:lang="en">has_interpretation</rdfs:label>
+    </owl:ObjectProperty>
+    
 
 
-#################################################################
-#    Classes
-#################################################################
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000115 -->
 
-###  http://datamodel.clinicalgenome.org/terms/Affects
-:Affects rdf:type owl:Class ;
-         rdfs:subClassOf :ClinVarClinicalSignificance ;
-         rdfs:comment "Sourced from ClinVar value sets"@en ;
-         rdfs:label "Affects"@en .
+    <owl:ObjectProperty rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000115">
+        <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/SEPIO_0000027"/>
+        <rdfs:label xml:lang="en">has_phenotype</rdfs:label>
+    </owl:ObjectProperty>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/Benign
-:Benign rdf:type owl:Class ;
-        rdfs:subClassOf :ClinVarClinicalSignificance ;
-        rdfs:comment "Sourced from ClinVar value sets"@en ;
-        rdfs:label "Benign"@en .
+    <!-- http://purl.obolibrary.org/obo/SEPIO_0000026 -->
 
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/SEPIO_0000026">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:label>has_subject</rdfs:label>
+    </owl:ObjectProperty>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000000
-:CG_000000 rdf:type owl:Class ;
-           rdfs:label "Assertion"@en .
 
+    <!-- http://purl.obolibrary.org/obo/SEPIO_0000027 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000001
-:CG_000001 rdf:type owl:Class ;
-           rdfs:label "Interpretation"@en .
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/SEPIO_0000027">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:label>has_object</rdfs:label>
+    </owl:ObjectProperty>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000002
-:CG_000002 rdf:type owl:Class ;
-           rdfs:label "Criterion"@en .
+    <!-- http://purl.obolibrary.org/obo/SEPIO_0000028 -->
 
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/SEPIO_0000028">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:label>has_predicate</rdfs:label>
+    </owl:ObjectProperty>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000003
-:CG_000003 rdf:type owl:Class ;
-           rdfs:label "Evidence"@en .
 
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000004
-:CG_000004 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000003 ;
-           rdfs:label "Experimental"@en .
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000005
-:CG_000005 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000004 ;
-           rdfs:label "Functional"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/Affects -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/Affects">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/ClinVarClinicalSignificance"/>
+        <rdfs:comment xml:lang="en">Sourced from ClinVar value sets</rdfs:comment>
+        <rdfs:label xml:lang="en">Affects</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000006
-:CG_000006 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000004 ;
-           rdfs:label "Functional Alteration"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/Benign -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000007
-:CG_000007 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000004 ;
-           rdfs:label "Model"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/Benign">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/ClinVarClinicalSignificance"/>
+        <rdfs:comment xml:lang="en">Sourced from ClinVar value sets</rdfs:comment>
+        <rdfs:label xml:lang="en">Benign</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000008
-:CG_000008 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000004 ;
-           rdfs:label "Rescue"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000000 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000000">
+        <rdfs:label xml:lang="en">Assertion</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000009
-:CG_000009 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000008 ;
-           rdfs:label "Animal Model Rescue"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000001 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000010
-:CG_000010 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000008 ;
-           rdfs:label "Rescue in Engineered Equivalent Model"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000001">
+        <rdfs:label xml:lang="en">Interpretation</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000011
-:CG_000011 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000007 ;
-           rdfs:label "Animal Model"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000002 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000002">
+        <rdfs:label xml:lang="en">Criterion</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000012
-:CG_000012 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000007 ;
-           rdfs:label "Cell Culture Model"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000003 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000013
-:CG_000013 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000006 ;
-           rdfs:label "Functional Alteration in Non-Patient Cells"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000003">
+        <rdfs:label xml:lang="en">Evidence</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000014
-:CG_000014 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000006 ;
-           rdfs:label "Functional Alteration in Patient Cells"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000004 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000004">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000003"/>
+        <rdfs:label xml:lang="en">Experimental</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000015
-:CG_000015 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000005 ;
-           rdfs:label "Biochemical Function"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000005 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000016
-:CG_000016 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000005 ;
-           rdfs:label "Expression"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000005">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000004"/>
+        <rdfs:label xml:lang="en">Functional</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000017
-:CG_000017 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000005 ;
-           rdfs:label "Protein Interaction"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000006 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000006">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000004"/>
+        <rdfs:label xml:lang="en">Functional Alteration</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000018
-:CG_000018 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000002 ;
-           rdfs:label "Gene Disease Association"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000007 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000019
-:CG_000019 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000018 ;
-           rdfs:label "Experimental Evidence Present"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000007">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000004"/>
+        <rdfs:label xml:lang="en">Model</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000020
-:CG_000020 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000018 ;
-           rdfs:label "Genetic Evidence Present"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000008 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000008">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000004"/>
+        <rdfs:label xml:lang="en">Rescue</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000021
-:CG_000021 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000020 ;
-           rdfs:label "Case-Control Evidence Present"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000009 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000022
-:CG_000022 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000020 ;
-           rdfs:label "Case Evidence Present"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000009">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000008"/>
+        <rdfs:label xml:lang="en">Animal Model Rescue</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000023
-:CG_000023 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000021 ;
-           rdfs:label "Aggregate Variant Analysis Present"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000010 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000010">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000008"/>
+        <rdfs:label xml:lang="en">Rescue in Engineered Equivalent Model</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000024
-:CG_000024 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000021 ;
-           rdfs:label "Single Variant Analysis Present"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000011 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000025
-:CG_000025 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000022 ;
-           rdfs:label "Segregation Evidence Present"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000011">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000007"/>
+        <rdfs:label xml:lang="en">Animal Model</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000026
-:CG_000026 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000022 ;
-           rdfs:label "Variant Evidence Present"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000012 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000012">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000007"/>
+        <rdfs:label xml:lang="en">Cell Culture Model</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000027
-:CG_000027 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000026 ;
-           rdfs:label "Two Trans Varaints, Neither Null or Denovo in Autosomal Recessive Disorder"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000013 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000028
-:CG_000028 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000026 ;
-           rdfs:label "Two Trans Variants, One Null or Denovo in Autosomal Recessive Disorder"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000013">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000006"/>
+        <rdfs:label xml:lang="en">Functional Alteration in Non-Patient Cells</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000029
-:CG_000029 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000026 ;
-           rdfs:label "Null Variant in Autosomal Dominant Disorder"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000014 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000014">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000006"/>
+        <rdfs:label xml:lang="en">Functional Alteration in Patient Cells</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000030
-:CG_000030 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000026 ;
-           rdfs:label "Other Variant in Autosomal Dominant Disorder"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000015 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000031
-:CG_000031 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000026 ;
-           rdfs:label "Denovo Variant in Autosomal Dominant Disorder"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000015">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000005"/>
+        <rdfs:label xml:lang="en">Biochemical Function</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000032
-:CG_000032 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000000 ;
-           rdfs:label "Gene Disease Assertion"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000016 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000016">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000005"/>
+        <rdfs:label xml:lang="en">Expression</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000033
-:CG_000033 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000000 ;
-           rdfs:label "Actionability Assertion"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000017 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000034
-:CG_000034 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000033 ;
-           rdfs:label "Effectiveness of Intervention"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000017">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000005"/>
+        <rdfs:label xml:lang="en">Protein Interaction</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000035
-:CG_000035 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000033 ;
-           rdfs:label "Intervention Actionability"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000018 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000018">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000002"/>
+        <rdfs:label xml:lang="en">Gene Disease Association</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000036
-:CG_000036 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000033 ;
-           rdfs:label "Likelihood of Morbidity"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000019 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000037
-:CG_000037 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000033 ;
-           rdfs:label "Nature of Intervention"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000019">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000018"/>
+        <rdfs:label xml:lang="en">Experimental Evidence Present</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000038
-:CG_000038 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000033 ;
-           rdfs:label "Severity of Disease"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000020 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000020">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000018"/>
+        <rdfs:label xml:lang="en">Genetic Evidence Present</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000039
-:CG_000039 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000001 ;
-           rdfs:label "Actionability Interpretation"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000021 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000040
-:CG_000040 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000001 ;
-           rdfs:label "Gene Disease Association Interpretation"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000021">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000020"/>
+        <rdfs:label xml:lang="en">Case-Control Evidence Present</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000041
-:CG_000041 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000039 ;
-           rdfs:label "Severity"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000022 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000022">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000020"/>
+        <rdfs:label xml:lang="en">Case Evidence Present</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000042
-:CG_000042 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000039 ;
-           rdfs:label "Level of Evidence"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000023 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000043
-:CG_000043 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000041 ;
-           :CG_000062 3 ;
-           rdfs:label "Sudden Death"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000023">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000021"/>
+        <rdfs:label xml:lang="en">Aggregate Variant Analysis Present</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000044
-:CG_000044 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000041 ;
-           :CG_000062 2 ;
-           rdfs:label "Possible death or Major Morbidity"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000024 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000024">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000021"/>
+        <rdfs:label xml:lang="en">Single Variant Analysis Present</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000045
-:CG_000045 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000041 ;
-           :CG_000062 1 ;
-           rdfs:label "Modest Morbidity"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000025 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000046
-:CG_000046 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000041 ;
-           :CG_000062 0 ;
-           rdfs:label "Minimal or no Morbidity"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000025">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000022"/>
+        <rdfs:label xml:lang="en">Segregation Evidence Present</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000047
-:CG_000047 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000039 ;
-           rdfs:label "Likelihood of Disease"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000026 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000026">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000022"/>
+        <rdfs:label xml:lang="en">Variant Evidence Present</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000048
-:CG_000048 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000047 ;
-           :CG_000062 3 ;
-           rdfs:label ">40% Chance"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000027 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000049
-:CG_000049 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000047 ;
-           :CG_000062 2 ;
-           rdfs:label "5-39% Chance"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000027">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000026"/>
+        <rdfs:label xml:lang="en">Two Trans Varaints, Neither Null or Denovo in Autosomal Recessive Disorder</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000050
-:CG_000050 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000047 ;
-           :CG_000062 1 ;
-           rdfs:label "1-4% chance"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000028 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000028">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000026"/>
+        <rdfs:label xml:lang="en">Two Trans Variants, One Null or Denovo in Autosomal Recessive Disorder</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000051
-:CG_000051 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000047 ;
-           :CG_000062 0 ;
-           rdfs:label "<1% chance or unknown"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000029 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000052
-:CG_000052 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000039 ;
-           rdfs:label "Efficacy of Intervention"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000029">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000026"/>
+        <rdfs:label xml:lang="en">Null Variant in Autosomal Dominant Disorder</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000053
-:CG_000053 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000042 ;
-           :CG_000062 "A" ;
-           rdfs:label "Substantial Evidence"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000030 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000030">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000026"/>
+        <rdfs:label xml:lang="en">Other Variant in Autosomal Dominant Disorder</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000054
-:CG_000054 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000042 ;
-           :CG_000062 "B" ;
-           rdfs:label "Moderate Evidence"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000031 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000055
-:CG_000055 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000042 ;
-           :CG_000062 "C" ;
-           rdfs:label "Minimal Evidence"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000031">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000026"/>
+        <rdfs:label xml:lang="en">Denovo Variant in Autosomal Dominant Disorder</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000056
-:CG_000056 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000042 ;
-           :CG_000062 "D" ;
-           rdfs:label "Poor Evidence"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000032 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000032">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000000"/>
+        <rdfs:label xml:lang="en">Gene Disease Assertion</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000057
-:CG_000057 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000042 ;
-           :CG_000062 "E" ;
-           rdfs:label "Expert Contributed Evidence"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000033 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000058
-:CG_000058 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000052 ;
-           :CG_000062 3 ;
-           rdfs:label "Highly Effective"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000033">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000000"/>
+        <rdfs:label xml:lang="en">Actionability Assertion</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000059
-:CG_000059 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000052 ;
-           :CG_000062 2 ;
-           rdfs:label "Moderately Effective"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000034 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000034">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000033"/>
+        <rdfs:label xml:lang="en">Effectiveness of Intervention</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000060
-:CG_000060 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000052 ;
-           :CG_000062 1 ;
-           rdfs:label "Minimally Effective"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000035 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000061
-:CG_000061 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000052 ;
-           :CG_000062 0 ;
-           rdfs:label "Ineffective/No Intervention"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000035">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000033"/>
+        <rdfs:label xml:lang="en">Intervention Actionability</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000063
-:CG_000063 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000040 ;
-           rdfs:label "Definitive"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000036 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000036">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000033"/>
+        <rdfs:label xml:lang="en">Likelihood of Morbidity</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000064
-:CG_000064 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000040 ;
-           rdfs:label "Strong"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000037 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000065
-:CG_000065 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000040 ;
-           rdfs:label "Moderate"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000037">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000033"/>
+        <rdfs:label xml:lang="en">Nature of Intervention</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000066
-:CG_000066 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000040 ;
-           rdfs:label "Limited"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000038 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000038">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000033"/>
+        <rdfs:label xml:lang="en">Severity of Disease</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000067
-:CG_000067 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000040 ;
-           rdfs:label "No Reported Evidence"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000039 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000068
-:CG_000068 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000040 ;
-           rdfs:label "Conflicting Evidence Reported"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000039">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000001"/>
+        <rdfs:label xml:lang="en">Actionability Interpretation</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000069
-:CG_000069 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000019 ;
-           rdfs:label "Function"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000040 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000040">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000001"/>
+        <rdfs:label xml:lang="en">Gene Disease Association Interpretation</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000070
-:CG_000070 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000019 ;
-           rdfs:label "Functional Alteration"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000041 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000071
-:CG_000071 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000019 ;
-           rdfs:label "Models & Rescue"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000041">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000039"/>
+        <rdfs:label xml:lang="en">Severity</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000072
-:CG_000072 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000071 ;
-           rdfs:label "Animal Model"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000042 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000042">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000039"/>
+        <rdfs:label xml:lang="en">Level of Evidence</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000073
-:CG_000073 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000071 ;
-           rdfs:label "Cell Culture Model System"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000043 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000074
-:CG_000074 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000071 ;
-           rdfs:label "Rescue in Animal Model"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000043">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000041"/>
+        <CG_000062 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</CG_000062>
+        <rdfs:label xml:lang="en">Sudden Death</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000075
-:CG_000075 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000071 ;
-           rdfs:label "Rescue in Engineered Equivalent"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000044 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000044">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000041"/>
+        <CG_000062 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</CG_000062>
+        <rdfs:label xml:lang="en">Possible death or Major Morbidity</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000076
-:CG_000076 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000070 ;
-           rdfs:label "Patient Cells"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000045 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000077
-:CG_000077 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000070 ;
-           rdfs:label "Non-Patient Cells"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000045">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000041"/>
+        <CG_000062 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</CG_000062>
+        <rdfs:label xml:lang="en">Modest Morbidity</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000078
-:CG_000078 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000069 ;
-           rdfs:label "Biochemical Function"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000046 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000046">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000041"/>
+        <CG_000062 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</CG_000062>
+        <rdfs:label xml:lang="en">Minimal or no Morbidity</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000079
-:CG_000079 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000069 ;
-           rdfs:label "Protein Interaction"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000047 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000080
-:CG_000080 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000069 ;
-           rdfs:label "Expression"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000047">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000039"/>
+        <rdfs:label xml:lang="en">Likelihood of Disease</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000081
-:CG_000081 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000039 ;
-           rdfs:label "Indicates Clinical Intervention in Disease"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000048 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000048">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000047"/>
+        <CG_000062 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</CG_000062>
+        <rdfs:label xml:lang="en">&gt;40% Chance</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000082
-:CG_000082 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000039 ;
-           rdfs:label "Intervention is Supported by Evidence"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000049 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000083
-:CG_000083 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000000 ;
-           rdfs:label "Gene Dosage Assertion"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000049">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000047"/>
+        <CG_000062 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</CG_000062>
+        <rdfs:label xml:lang="en">5-39% Chance</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000084
-:CG_000084 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000040 ;
-           rdfs:label "Disputed"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000050 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000050">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000047"/>
+        <CG_000062 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</CG_000062>
+        <rdfs:label xml:lang="en">1-4% chance</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000085
-:CG_000085 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000040 ;
-           rdfs:label "Refuted"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000051 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000086
-:CG_000086 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000039 ;
-           rdfs:label "Nature of Intervention"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000051">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000047"/>
+        <CG_000062 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</CG_000062>
+        <rdfs:label xml:lang="en">&lt;1% chance or unknown</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000087
-:CG_000087 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000086 ;
-           :CG_000062 3 ;
-           rdfs:label "Low Risk"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000052 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000052">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000039"/>
+        <rdfs:label xml:lang="en">Efficacy of Intervention</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000088
-:CG_000088 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000086 ;
-           :CG_000062 2 ;
-           rdfs:label "Moderate Risk"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000053 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000089
-:CG_000089 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000086 ;
-           :CG_000062 1 ;
-           rdfs:label "Greater Risk"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000053">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000042"/>
+        <CG_000062>A</CG_000062>
+        <rdfs:label xml:lang="en">Substantial Evidence</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000090
-:CG_000090 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000086 ;
-           :CG_000062 0 ;
-           rdfs:label "High Risk"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000054 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000054">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000042"/>
+        <CG_000062>B</CG_000062>
+        <rdfs:label xml:lang="en">Moderate Evidence</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000091
-:CG_000091 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000001 ;
-           rdfs:label "Gene Dosage Interpretation"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000055 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000092
-:CG_000092 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000102 ;
-           :CG_000062 3 ;
-           :CG_000104 "Sufficient Evidence" ;
-           rdfs:label "Sufficient Evidence for Haploinsufficiency"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000055">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000042"/>
+        <CG_000062>C</CG_000062>
+        <rdfs:label xml:lang="en">Minimal Evidence</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000093
-:CG_000093 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000102 ;
-           :CG_000062 2 ;
-           :CG_000104 "Some Evidence" ;
-           rdfs:label "Some Evidence for Haploinsufficiency"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000056 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000056">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000042"/>
+        <CG_000062>D</CG_000062>
+        <rdfs:label xml:lang="en">Poor Evidence</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000094
-:CG_000094 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000102 ;
-           :CG_000062 30 ;
-           :CG_000104 "Associated with Autosomal Recessive Phenotype" ;
-           rdfs:label "Gene Associated with Autosomal Recessive Phenotype"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000057 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000095
-:CG_000095 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000102 ;
-           :CG_000062 1 ;
-           :CG_000104 "Minimal Evidence" ;
-           rdfs:label "Minimal Evidence for Haploinsufficiency"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000057">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000042"/>
+        <CG_000062>E</CG_000062>
+        <rdfs:label xml:lang="en">Expert Contributed Evidence</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000096
-:CG_000096 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000102 ;
-           :CG_000062 0 ;
-           :CG_000104 "No Evidence" ;
-           rdfs:label "No Evidence for Haploinsufficiency"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000058 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000058">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000052"/>
+        <CG_000062 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</CG_000062>
+        <rdfs:label xml:lang="en">Highly Effective</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000097
-:CG_000097 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000101 ;
-           :CG_000062 3 ;
-           :CG_000104 "Sufficient Evidence" ;
-           rdfs:label "Sufficient Evidence for Triplosensitivity"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000059 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000098
-:CG_000098 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000101 ;
-           :CG_000062 2 ;
-           :CG_000104 "Moderate Evidence" ;
-           rdfs:label "Moderate Evidence for Triplosensitivity"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000059">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000052"/>
+        <CG_000062 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</CG_000062>
+        <rdfs:label xml:lang="en">Moderately Effective</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000099
-:CG_000099 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000101 ;
-           :CG_000062 1 ;
-           :CG_000104 "Minimal Evidence" ;
-           rdfs:label "Minimal Evidence for Triplosensitiivty"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000060 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000060">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000052"/>
+        <CG_000062 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</CG_000062>
+        <rdfs:label xml:lang="en">Minimally Effective</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000100
-:CG_000100 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000101 ;
-           :CG_000062 0 ;
-           :CG_000104 "No Evidence" ;
-           rdfs:label "No Evidence for Triplosensitivity"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000061 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000101
-:CG_000101 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000091 ;
-           rdfs:label "Triplosensitivity Interpretation"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000061">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000052"/>
+        <CG_000062 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</CG_000062>
+        <rdfs:label xml:lang="en">Ineffective/No Intervention</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000102
-:CG_000102 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000091 ;
-           rdfs:label "Haploinsufficiency Interpretation"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000063 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000063">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000040"/>
+        <rdfs:label xml:lang="en">Definitive</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000103
-:CG_000103 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000001 ;
-           rdfs:label "Variant Interpretation"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000064 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000105
-:CG_000105 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000103 ;
-           rdfs:label "Pathogenic"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000064">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000040"/>
+        <rdfs:label xml:lang="en">Strong</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000106
-:CG_000106 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000103 ;
-           rdfs:label "Likely Pathogenic"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000065 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000065">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000040"/>
+        <rdfs:label xml:lang="en">Moderate</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000107
-:CG_000107 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000103 ;
-           rdfs:label "Uncertain Significance"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000066 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000108
-:CG_000108 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000103 ;
-           rdfs:label "Likely Benign"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000066">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000040"/>
+        <rdfs:label xml:lang="en">Limited</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000109
-:CG_000109 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000103 ;
-           rdfs:label "Benign"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000067 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000067">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000040"/>
+        <rdfs:label xml:lang="en">No Reported Evidence</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000110
-:CG_000110 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000003 ;
-           rdfs:label "Gene Dosage Evidence"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000068 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000111
-:CG_000111 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000110 ;
-           rdfs:label "Haploinsufficiency Evidence"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000068">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000040"/>
+        <rdfs:label xml:lang="en">Conflicting Evidence Reported</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000112
-:CG_000112 rdf:type owl:Class ;
-           rdfs:subClassOf :CG_000110 ;
-           rdfs:label "Triplosensitivity Evidence"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000069 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000069">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000019"/>
+        <rdfs:label xml:lang="en">Function</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000116
-:CG_000116 rdf:type owl:Class ;
-           rdfs:subClassOf <http://purl.obolibrary.org/obo/SO_0001059> ;
-           rdfs:comment "Sourced from ClinVar value sets" ;
-           rdfs:label "complex"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000070 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000117
-:CG_000117 rdf:type owl:Class ;
-           rdfs:subClassOf <http://purl.obolibrary.org/obo/SO_0000001> ;
-           rdfs:label "Contextual Region"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000070">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000019"/>
+        <rdfs:label xml:lang="en">Functional Alteration</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000118
-:CG_000118 rdf:type owl:Class ;
-           rdfs:subClassOf <http://purl.obolibrary.org/obo/SO_0000001> ;
-           rdfs:label "Canonical Region"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000071 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000071">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000019"/>
+        <rdfs:label xml:lang="en">Models &amp; Rescue</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000119
-:CG_000119 rdf:type owl:Class ;
-           rdfs:subClassOf <http://purl.obolibrary.org/obo/SO_0001059> ;
-           rdfs:comment "Sourced from ClinVar value sets" ;
-           rdfs:label "fusion"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000072 -->
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000120
-:CG_000120 rdf:type owl:Class ;
-           rdfs:subClassOf <http://purl.obolibrary.org/obo/SO_0001059> ;
-           rdfs:comment "Sourced from ClinVar value sets" ;
-           rdfs:label "variation"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000072">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000071"/>
+        <rdfs:label xml:lang="en">Animal Model</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/CG_000121
-:CG_000121 rdf:type owl:Class ;
-           rdfs:subClassOf <http://purl.obolibrary.org/obo/SO_0001059> ;
-           rdfs:comment "Sourced from ClinVar value sets" ;
-           rdfs:label "protein_only"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000073 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000073">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000071"/>
+        <rdfs:label xml:lang="en">Cell Culture Model System</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/ClinVarClinicalSignificance
-:ClinVarClinicalSignificance rdf:type owl:Class ;
-                             rdfs:label "ClinVarClinicalSignificance"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000074 -->
 
-###  http://datamodel.clinicalgenome.org/terms/ClinVarOrigin
-:ClinVarOrigin rdf:type owl:Class ;
-               rdfs:label "ClinVarOrigin"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000074">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000071"/>
+        <rdfs:label xml:lang="en">Rescue in Animal Model</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/Distinct_chromosomes
-:Distinct_chromosomes rdf:type owl:Class ;
-                      rdfs:subClassOf <http://purl.obolibrary.org/obo/SO_0001059> ;
-                      rdfs:comment "Sourced from ClinVar value sets"@en ;
-                      rdfs:label "Distinct_chromosomes"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000075 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000075">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000071"/>
+        <rdfs:label xml:lang="en">Rescue in Engineered Equivalent</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/Likely_benign
-:Likely_benign rdf:type owl:Class ;
-               rdfs:subClassOf :ClinVarClinicalSignificance ;
-               rdfs:comment "Sourced from ClinVar value sets"@en ;
-               rdfs:label "Likely_benign"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000076 -->
 
-###  http://datamodel.clinicalgenome.org/terms/Likely_pathogenic
-:Likely_pathogenic rdf:type owl:Class ;
-                   rdfs:subClassOf :ClinVarClinicalSignificance ;
-                   rdfs:comment "Sourced from ClinVar value sets"@en ;
-                   rdfs:label "Likely_pathogenic"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000076">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000070"/>
+        <rdfs:label xml:lang="en">Patient Cells</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/Pathogenic
-:Pathogenic rdf:type owl:Class ;
-            rdfs:subClassOf :ClinVarClinicalSignificance ;
-            rdfs:comment "Sourced from ClinVar value sets"@en ;
-            rdfs:label "Pathogenic"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000077 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000077">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000070"/>
+        <rdfs:label xml:lang="en">Non-Patient Cells</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/Phase_unknown
-:Phase_unknown rdf:type owl:Class ;
-               rdfs:subClassOf <http://purl.obolibrary.org/obo/SO_0001059> ;
-               rdfs:comment "Sourced from ClinVar value sets"@en ;
-               rdfs:label "Phase_unknown"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000078 -->
 
-###  http://datamodel.clinicalgenome.org/terms/Uncertain_significance
-:Uncertain_significance rdf:type owl:Class ;
-                        rdfs:subClassOf :ClinVarClinicalSignificance ;
-                        rdfs:comment "Sourced from ClinVar value sets"@en ;
-                        rdfs:label "Uncertain_significance"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000078">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000069"/>
+        <rdfs:label xml:lang="en">Biochemical Function</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/association
-:association rdf:type owl:Class ;
-             rdfs:subClassOf :ClinVarClinicalSignificance ;
-             rdfs:comment "Sourced from ClinVar value sets"@en ;
-             rdfs:label "association"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000079 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000079">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000069"/>
+        <rdfs:label xml:lang="en">Protein Interaction</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/association_not_found
-:association_not_found rdf:type owl:Class ;
-                       rdfs:subClassOf :ClinVarClinicalSignificance ;
-                       rdfs:comment "Sourced from ClinVar value sets"@en ;
-                       rdfs:label "association_not_found"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000080 -->
 
-###  http://datamodel.clinicalgenome.org/terms/biparental
-:biparental rdf:type owl:Class ;
-            rdfs:subClassOf :ClinVarOrigin ;
-            rdfs:comment "Sourced from ClinVar value sets"@en ;
-            rdfs:label "biparental"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000080">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000069"/>
+        <rdfs:label xml:lang="en">Expression</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/confers_sensitivity
-:confers_sensitivity rdf:type owl:Class ;
-                     rdfs:subClassOf :ClinVarClinicalSignificance ;
-                     rdfs:comment "Sourced from ClinVar value sets"@en ;
-                     rdfs:label "confers_sensitivity"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000081 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000081">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000039"/>
+        <rdfs:label xml:lang="en">Indicates Clinical Intervention in Disease</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/conflicting_data_from_submitters
-:conflicting_data_from_submitters rdf:type owl:Class ;
-                                  rdfs:subClassOf :ClinVarClinicalSignificance ;
-                                  rdfs:comment "Sourced from ClinVar value sets"@en ;
-                                  rdfs:label "conflicting_data_from_submitters"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000082 -->
 
-###  http://datamodel.clinicalgenome.org/terms/drug_response
-:drug_response rdf:type owl:Class ;
-               rdfs:subClassOf :ClinVarClinicalSignificance ;
-               rdfs:comment "Sourced from ClinVar value sets"@en ;
-               rdfs:label "drug_response"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000082">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000039"/>
+        <rdfs:label xml:lang="en">Intervention is Supported by Evidence</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/not_provided
-:not_provided rdf:type owl:Class ;
-              rdfs:subClassOf :ClinVarClinicalSignificance ;
-              rdfs:comment "Sourced from ClinVar value sets"@en ;
-              rdfs:label "not_provided"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000083 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000083">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000000"/>
+        <rdfs:label xml:lang="en">Gene Dosage Assertion</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/other
-:other rdf:type owl:Class ;
-       rdfs:subClassOf :ClinVarClinicalSignificance ;
-       rdfs:comment "Sourced from ClinVar value sets"@en ;
-       rdfs:label "other"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000084 -->
 
-###  http://datamodel.clinicalgenome.org/terms/protective
-:protective rdf:type owl:Class ;
-            rdfs:subClassOf :ClinVarClinicalSignificance ;
-            rdfs:comment "Sourced from ClinVar value sets"@en ;
-            rdfs:label "protective"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000084">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000040"/>
+        <rdfs:label xml:lang="en">Disputed</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://datamodel.clinicalgenome.org/terms/risk_factor
-:risk_factor rdf:type owl:Class ;
-             rdfs:subClassOf :ClinVarClinicalSignificance ;
-             rdfs:comment "Sourced from ClinVar value sets"@en ;
-             rdfs:label "risk_factor"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000085 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000085">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000040"/>
+        <rdfs:label xml:lang="en">Refuted</rdfs:label>
+    </owl:Class>
+    
 
-###  http://datamodel.clinicalgenome.org/terms/uniparental
-:uniparental rdf:type owl:Class ;
-             rdfs:subClassOf :ClinVarOrigin ;
-             rdfs:comment "Sourced from ClinVar value sets"@en ;
-             rdfs:label "uniparental"@en .
 
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000086 -->
 
-###  http://purl.obolibrary.org/obo/SO_0000001
-<http://purl.obolibrary.org/obo/SO_0000001> rdf:type owl:Class ;
-                                            rdfs:label "Region"@en .
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000086">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000039"/>
+        <rdfs:label xml:lang="en">Nature of Intervention</rdfs:label>
+    </owl:Class>
+    
 
 
-###  http://purl.obolibrary.org/obo/SO_0001059
-<http://purl.obolibrary.org/obo/SO_0001059> rdf:type owl:Class ;
-                                            rdfs:label "ClinVarVariantType"@en .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000087 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000087">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000086"/>
+        <CG_000062 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</CG_000062>
+        <rdfs:label xml:lang="en">Low Risk</rdfs:label>
+    </owl:Class>
+    
 
-#################################################################
-#    General axioms
-#################################################################
 
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :CG_000116
-                :CG_000119
-                :CG_000120
-                :CG_000121
-              )
-] .
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000088 -->
 
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000088">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000086"/>
+        <CG_000062 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</CG_000062>
+        <rdfs:label xml:lang="en">Moderate Risk</rdfs:label>
+    </owl:Class>
+    
 
-###  Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000089 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000089">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000086"/>
+        <CG_000062 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</CG_000062>
+        <rdfs:label xml:lang="en">Greater Risk</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000090 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000090">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000086"/>
+        <CG_000062 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</CG_000062>
+        <rdfs:label xml:lang="en">High Risk</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000091 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000091">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000001"/>
+        <rdfs:label xml:lang="en">Gene Dosage Interpretation</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000092 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000092">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000102"/>
+        <CG_000062 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</CG_000062>
+        <CG_000104>Sufficient Evidence</CG_000104>
+        <rdfs:label xml:lang="en">Sufficient Evidence for Haploinsufficiency</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000093 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000093">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000102"/>
+        <CG_000062 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</CG_000062>
+        <CG_000104>Some Evidence</CG_000104>
+        <rdfs:label xml:lang="en">Some Evidence for Haploinsufficiency</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000094 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000094">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000102"/>
+        <CG_000062 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">30</CG_000062>
+        <CG_000104>Associated with Autosomal Recessive Phenotype</CG_000104>
+        <rdfs:label xml:lang="en">Gene Associated with Autosomal Recessive Phenotype</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000095 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000095">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000102"/>
+        <CG_000062 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</CG_000062>
+        <CG_000104>Minimal Evidence</CG_000104>
+        <rdfs:label xml:lang="en">Minimal Evidence for Haploinsufficiency</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000096 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000096">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000102"/>
+        <CG_000062 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</CG_000062>
+        <CG_000104>No Evidence</CG_000104>
+        <rdfs:label xml:lang="en">No Evidence for Haploinsufficiency</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000097 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000097">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000101"/>
+        <CG_000062 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</CG_000062>
+        <CG_000104>Sufficient Evidence</CG_000104>
+        <rdfs:label xml:lang="en">Sufficient Evidence for Triplosensitivity</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000098 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000098">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000101"/>
+        <CG_000062 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</CG_000062>
+        <CG_000104>Moderate Evidence</CG_000104>
+        <rdfs:label xml:lang="en">Moderate Evidence for Triplosensitivity</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000099 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000099">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000101"/>
+        <CG_000062 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</CG_000062>
+        <CG_000104>Minimal Evidence</CG_000104>
+        <rdfs:label xml:lang="en">Minimal Evidence for Triplosensitiivty</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000100 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000100">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000101"/>
+        <CG_000062 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</CG_000062>
+        <CG_000104>No Evidence</CG_000104>
+        <rdfs:label xml:lang="en">No Evidence for Triplosensitivity</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000101 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000101">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000091"/>
+        <rdfs:label xml:lang="en">Triplosensitivity Interpretation</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000102 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000102">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000091"/>
+        <rdfs:label xml:lang="en">Haploinsufficiency Interpretation</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000103 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000103">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000001"/>
+        <rdfs:label xml:lang="en">Variant Interpretation</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000105 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000105">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000103"/>
+        <rdfs:label xml:lang="en">Pathogenic</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000106 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000106">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000103"/>
+        <rdfs:label xml:lang="en">Likely Pathogenic</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000107 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000107">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000103"/>
+        <rdfs:label xml:lang="en">Uncertain Significance</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000108 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000108">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000103"/>
+        <rdfs:label xml:lang="en">Likely Benign</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000109 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000109">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000103"/>
+        <rdfs:label xml:lang="en">Benign</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000110 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000110">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000003"/>
+        <rdfs:label xml:lang="en">Gene Dosage Evidence</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000111 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000111">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000110"/>
+        <rdfs:label xml:lang="en">Haploinsufficiency Evidence</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000112 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000112">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/CG_000110"/>
+        <rdfs:label xml:lang="en">Triplosensitivity Evidence</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000116 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000116">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/SO_0001059"/>
+        <rdfs:comment>Sourced from ClinVar value sets</rdfs:comment>
+        <rdfs:label xml:lang="en">complex</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000117 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000117">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/SO_0000001"/>
+        <rdfs:label xml:lang="en">Contextual Region</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000118 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000118">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/SO_0000001"/>
+        <rdfs:label xml:lang="en">Canonical Region</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000119 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000119">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/SO_0001059"/>
+        <rdfs:comment>Sourced from ClinVar value sets</rdfs:comment>
+        <rdfs:label xml:lang="en">fusion</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000120 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000120">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/SO_0001059"/>
+        <rdfs:comment>Sourced from ClinVar value sets</rdfs:comment>
+        <rdfs:label xml:lang="en">variation</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/CG_000121 -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000121">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/SO_0001059"/>
+        <rdfs:comment>Sourced from ClinVar value sets</rdfs:comment>
+        <rdfs:label xml:lang="en">protein_only</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/ClinVarClinicalSignificance -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/ClinVarClinicalSignificance">
+        <rdfs:label xml:lang="en">ClinVarClinicalSignificance</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/ClinVarOrigin -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/ClinVarOrigin">
+        <rdfs:label xml:lang="en">ClinVarOrigin</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/Distinct_chromosomes -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/Distinct_chromosomes">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/SO_0001059"/>
+        <rdfs:comment xml:lang="en">Sourced from ClinVar value sets</rdfs:comment>
+        <rdfs:label xml:lang="en">Distinct_chromosomes</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/Likely_benign -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/Likely_benign">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/ClinVarClinicalSignificance"/>
+        <rdfs:comment xml:lang="en">Sourced from ClinVar value sets</rdfs:comment>
+        <rdfs:label xml:lang="en">Likely_benign</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/Likely_pathogenic -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/Likely_pathogenic">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/ClinVarClinicalSignificance"/>
+        <rdfs:comment xml:lang="en">Sourced from ClinVar value sets</rdfs:comment>
+        <rdfs:label xml:lang="en">Likely_pathogenic</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/Pathogenic -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/Pathogenic">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/ClinVarClinicalSignificance"/>
+        <rdfs:comment xml:lang="en">Sourced from ClinVar value sets</rdfs:comment>
+        <rdfs:label xml:lang="en">Pathogenic</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/Phase_unknown -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/Phase_unknown">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/SO_0001059"/>
+        <rdfs:comment xml:lang="en">Sourced from ClinVar value sets</rdfs:comment>
+        <rdfs:label xml:lang="en">Phase_unknown</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/Uncertain_significance -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/Uncertain_significance">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/ClinVarClinicalSignificance"/>
+        <rdfs:comment xml:lang="en">Sourced from ClinVar value sets</rdfs:comment>
+        <rdfs:label xml:lang="en">Uncertain_significance</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/association -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/association">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/ClinVarClinicalSignificance"/>
+        <rdfs:comment xml:lang="en">Sourced from ClinVar value sets</rdfs:comment>
+        <rdfs:label xml:lang="en">association</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/association_not_found -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/association_not_found">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/ClinVarClinicalSignificance"/>
+        <rdfs:comment xml:lang="en">Sourced from ClinVar value sets</rdfs:comment>
+        <rdfs:label xml:lang="en">association_not_found</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/biparental -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/biparental">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/ClinVarOrigin"/>
+        <rdfs:comment xml:lang="en">Sourced from ClinVar value sets</rdfs:comment>
+        <rdfs:label xml:lang="en">biparental</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/confers_sensitivity -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/confers_sensitivity">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/ClinVarClinicalSignificance"/>
+        <rdfs:comment xml:lang="en">Sourced from ClinVar value sets</rdfs:comment>
+        <rdfs:label xml:lang="en">confers_sensitivity</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/conflicting_data_from_submitters -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/conflicting_data_from_submitters">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/ClinVarClinicalSignificance"/>
+        <rdfs:comment xml:lang="en">Sourced from ClinVar value sets</rdfs:comment>
+        <rdfs:label xml:lang="en">conflicting_data_from_submitters</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/drug_response -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/drug_response">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/ClinVarClinicalSignificance"/>
+        <rdfs:comment xml:lang="en">Sourced from ClinVar value sets</rdfs:comment>
+        <rdfs:label xml:lang="en">drug_response</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/not_provided -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/not_provided">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/ClinVarClinicalSignificance"/>
+        <rdfs:comment xml:lang="en">Sourced from ClinVar value sets</rdfs:comment>
+        <rdfs:label xml:lang="en">not_provided</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/other -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/other">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/ClinVarClinicalSignificance"/>
+        <rdfs:comment xml:lang="en">Sourced from ClinVar value sets</rdfs:comment>
+        <rdfs:label xml:lang="en">other</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/protective -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/protective">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/ClinVarClinicalSignificance"/>
+        <rdfs:comment xml:lang="en">Sourced from ClinVar value sets</rdfs:comment>
+        <rdfs:label xml:lang="en">protective</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/risk_factor -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/risk_factor">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/ClinVarClinicalSignificance"/>
+        <rdfs:comment xml:lang="en">Sourced from ClinVar value sets</rdfs:comment>
+        <rdfs:label xml:lang="en">risk_factor</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://datamodel.clinicalgenome.org/terms/uniparental -->
+
+    <owl:Class rdf:about="http://datamodel.clinicalgenome.org/terms/uniparental">
+        <rdfs:subClassOf rdf:resource="http://datamodel.clinicalgenome.org/terms/ClinVarOrigin"/>
+        <rdfs:comment xml:lang="en">Sourced from ClinVar value sets</rdfs:comment>
+        <rdfs:label xml:lang="en">uniparental</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/SO_0000001 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/SO_0000001">
+        <rdfs:label xml:lang="en">Region</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/SO_0001059 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/SO_0001059">
+        <rdfs:label xml:lang="en">ClinVarVariantType</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000116"/>
+            <rdf:Description rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000119"/>
+            <rdf:Description rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000120"/>
+            <rdf:Description rdf:about="http://datamodel.clinicalgenome.org/terms/CG_000121"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+

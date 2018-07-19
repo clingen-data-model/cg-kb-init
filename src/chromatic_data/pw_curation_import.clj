@@ -58,11 +58,11 @@
     (.run session "match (i:ActionabilityInterventionAssertion {uuid: {id}}) merge (s:ActionabilityScore:Assertion:Entity {uuid: {scoreid}}) merge (i)<-[:was_generated_by]-(s) merge (s)-[:has_subject]->(i)"
           {"id" id, "scoreid" score-id})
     ; Grab main score
-    (.run session "match (s:Assertion {uuid: {scoreid}}), (c:RDFClass {iri: {iri}})  merge (s)-[:has_predicate]->(c)"
+    (.run session "match (s:Assertion {uuid: {scoreid}}), (c:Resource {iri: {iri}})  merge (s)-[:has_predicate]->(c)"
           {"iri" (first interpretations), "scoreid" score-id})
     ; Grab evidence score (if exists)
     (when (second interpretations) 
-      (.run session "match (s:Assertion {uuid: {scoreid}}), (c:RDFClass {iri: {iri}})  merge (s)-[:has_evidence_strength]->(c)"
+      (.run session "match (s:Assertion {uuid: {scoreid}}), (c:Resource {iri: {iri}})  merge (s)-[:has_evidence_strength]->(c)"
             {"iri" (second interpretations), "scoreid" score-id}))
     ))
 
@@ -88,7 +88,7 @@
         conditions (vec (map #((second %) "iri") (curation "conditions")))
         id (str (java.util.UUID/randomUUID))]
     (.run session 
-          (str  "match (g:Gene), (c:RDFClass) where g.hgnc_id in {genes} and c.iri in {conditions} 
+          (str  "match (g:Gene), (c:Resource) where g.hgnc_id in {genes} and c.iri in {conditions} 
 merge (a:" label  " {perm_id: {permid}}) on create set a.uuid = {id} merge (a)-[:has_subject]->(g) merge (a)-[:has_object]->(c)")
           {"genes" genes, "id" id, "conditions" conditions, "permid" perm-id})
     id))
@@ -104,7 +104,7 @@ merge (a:" label  " {perm_id: {permid}}) on create set a.uuid = {id} merge (a)-[
         file ((-> (curation "file") first second ) "location")]
     ;; TODO, make import from ProcessWire idempotent
     (.run session 
-          "match (a:ActionabilityAssertion {perm_id: {id}}), (i:RDFClass {iri: {top}}) merge (a)-[:has_predicate]->(i) set a.date = {date} set a.file = {file}"
+          "match (a:ActionabilityAssertion {perm_id: {id}}), (i:Resource {iri: {top}}) merge (a)-[:has_predicate]->(i) set a.date = {date} set a.file = {file}"
           {"id" perm-id, "top" (:top act-iris), "date" date, "file" file})
     (doseq [score (curation "scores")]
       (import-actionability-intervention score id session))))
@@ -121,7 +121,7 @@ merge (a:" label  " {perm_id: {permid}}) on create set a.uuid = {id} merge (a)-[
         score-json (curation "scoreJsonSerialized")
         score-json-sop5 (curation "scoreJsonSerializedSop5")
         date (curation "dateISO8601")]
-    (.run session "match (a:Assertion {perm_id: {id}}), (i:RDFClass {iri: {interp}}) merge (a)-[:has_predicate]->(i) set a.score_string = {scorejson} set a.score_string_sop5 = {scorejsonsop5} set a.date = {date}"
+    (.run session "match (a:Assertion {perm_id: {id}}), (i:Resource {iri: {interp}}) merge (a)-[:has_predicate]->(i) set a.score_string = {scorejson} set a.score_string_sop5 = {scorejsonsop5} set a.date = {date}"
           {"interp" interp-iri, "scorejson" score-json, "scorejsonsop5" score-json-sop5,
            "id" perm-id, "date" date})))
 

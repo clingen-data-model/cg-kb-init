@@ -11,15 +11,16 @@
             [chromatic-data.ncbi-dosage-import :as dosage]
             [chromatic-data.clinvar-process :as cv-proc]
             [chromatic-data.clinvar-import :as cv-import]
-            [chromatic-data.omim :as omim])
+            [chromatic-data.omim :as omim]
+            [chromatic-data.rdf :as rdf])
   (:import java.io.PushbackReader))
 
 ;; List of external assets to retrieve and the method to be used to import them
 (def external-data
   [
-   ;;["https://github.com/The-Sequence-Ontology/SO-Ontologies/raw/master/so.owl" "data/so.owl" :import-ontology]
-   ;;["http://purl.obolibrary.org/obo/mondo.owl" "data/mondo.owl" :import-ontology]
-   ;;["ftp://ftp.ebi.ac.uk/pub/databases/genenames/new/json/locus_groups/protein-coding_gene.json" "data/protein-coding_gene.json" :import-genes]
+   ["https://github.com/The-Sequence-Ontology/SO-Ontologies/raw/master/so.owl" "data/so.owl" :import-rdf]
+   ["http://purl.obolibrary.org/obo/mondo.owl" "data/mondo.owl" :import-rdf]
+   ["ftp://ftp.ebi.ac.uk/pub/databases/genenames/new/json/locus_groups/protein-coding_gene.json" "data/protein-coding_gene.json" :import-genes]
                                         ;["http://www.ensembl.org/biomart/martservice?query=%3C?xml%20version=%221.0%22%20encoding=%22UTF-8%22?%3E%3C!DOCTYPE%20Query%3E%3CQuery%20%20virtualSchemaName%20=%20%22default%22%20formatter%20=%20%22CSV%22%20header%20=%20%220%22%20uniqueRows%20=%20%221%22%20count%20=%20%22%22%20datasetConfigVersion%20=%20%220.6%22%20%3E%3CDataset%20name%20=%20%22hsapiens_gene_ensembl%22%20interface%20=%20%22default%22%20%3E%3CFilter%20name%20=%20%22biotype%22%20value%20=%20%22protein_coding%22/%3E%3CAttribute%20name%20=%20%22ensembl_gene_id%22%20/%3E%3CAttribute%20name%20=%20%22exon_chrom_start%22%20/%3E%3CAttribute%20name%20=%20%22exon_chrom_end%22%20/%3E%3CAttribute%20name%20=%20%22rank%22%20/%3E%3CAttribute%20name%20=%20%22ensembl_exon_id%22%20/%3E%3C/Dataset%3E%3C/Query%3E" "data/ensembl-gene-exons.csv" :import-exons]
                                         ; ["ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/xml/ClinVarFullRelease_00-latest.xml.gz" "data/clinvar.xml.gz" :import-clinvar]
    ;;["http://www.orphadata.org/data/ORDO/ordo_orphanet.owl.zip" "data/ordo_orphanet.owl.zip" :update-ontology]
@@ -39,13 +40,15 @@
    :gene-dosage dosage/import-gene-dosage
    :import-ontology-classes owl/import-ontology-classes
    :import-exons gene/create-exons
-   :omim-genes omim/import-genemap2})
+   :omim-genes omim/import-genemap2
+   :import-rdf rdf/import-rdf})
 
 
 (def post-update-queries
   ;; TODO update to reflect disease grouping around MONDO ids
   ["match (s:RDFClass) where s.iri starts with 'http://purl.obolibrary.org/obo/MONDO' set s :DiseaseConcept:Disease:Condition"
    "match (g:GeneDiseaseAssertion)-[rel:has_object]->(r:RDFClass)-[:equivalentTo]-(d:DiseaseConcept) merge (g)-[:has_object]->(d) delete rel"
+   "match (n:Resource)-[:type]->(:Resource {iri: 'http://www.w3.org/2002/07/owl#Class'}) set n :RDFClass;"
    "match (c:RDFClass)<-[:has_object]-(a:Assertion) set c :Disease:Condition"
    "match (c:RDFClass {iri: 'http://datamodel.clinicalgenome.org/terms/CG_000001'})<-[:subClassOf*]-(s:RDFClass) set s :Interpretation"
    "match (c:RDFClass) where c.iri contains 'RXNORM' set c :Drug"
@@ -105,7 +108,7 @@
     (when (:refresh opts)
       (println "retrieving remote assets")
       (fetch/fetch-all-remote-assets external-data))
-    (owl/import-ontology "ontology/clingen.owl")
+    (rdf/import-rdf "ontology/clingen.owl")
     (when-not (:base-only opts) (doseq [a external-data]
                                   (import-asset a)))
     (when-not (:skip-post opts) (run-post-update-queries post-update-queries))))

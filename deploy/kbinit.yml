@@ -1,0 +1,67 @@
+- hosts: all
+  tasks: 
+    - name: Install java-8
+      become: true
+      apt:
+        name: openjdk-8-jdk
+    - name: Set java8 to default
+      become: true
+      command: /usr/sbin/update-java-alternatives -s java-1.8.0-openjdk-amd64
+    - name: Compile uberjar for serveur
+      local_action: command lein uberjar
+    - name: Setup group
+      become: true
+      group:
+        name: serveur
+        system: yes
+    - name: Setup user
+      become: true
+      user:
+        name: serveur
+        system: yes
+        group: serveur
+    - name: Ensure target directory exists on remote
+      become: true
+      file:
+        state: directory
+        path: /usr/local/serveur
+        owner: serveur
+        group: serveur
+        mode: 0755
+    - name: Copy uberjar to target
+      become: true
+      copy:
+        src: ~/code/serveur/target/uberjar/serveur-0.1.0-SNAPSHOT-standalone.jar
+        dest: /usr/local/serveur/lib
+        owner: serveur
+        group: serveur
+        mode: 0755
+    - name: Copy current keystore to target
+      become: true
+      copy:
+        src: "{{ local_keystore_path }}"
+        dest: /usr/local/serveur/keys
+        owner: serveur
+        group: serveur
+        mode: 0755
+    - name: Copy current truststore to target
+      become: true
+      copy:
+        src: ~/code/serveur/keys/serveur.truststore.jks
+        dest: /usr/local/serveur/keys
+        owner: serveur
+        group: serveur
+        mode: 0755
+    - name: Copy systemd unit to target
+      become: true
+      template:
+        src: serveur.service
+        dest: /etc/systemd/system/serveur.service
+    - name: start serveur
+      become: true
+      systemd:
+        name: serveur
+        state: restarted
+        enabled: yes
+        daemon_reload: yes
+        

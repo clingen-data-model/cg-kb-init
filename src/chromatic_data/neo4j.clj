@@ -1,9 +1,12 @@
 (ns chromatic-data.neo4j
   (:require [clojure.java.io :as io]
-            [clojure.java.shell :as sh])
+            [clojure.java.shell :as sh]
+            [mount.core :refer [defstate]])
   (:import [org.neo4j.driver.v1 Driver GraphDatabase AuthTokens Session StatementResult Record TransactionWork]))
 
-(def driver-inst (GraphDatabase/driver (System/getenv "NEO4J_SERVER_PATH") (AuthTokens/basic (System/getenv "NEO4J_USER") (System/getenv "NEO4J_PASS"))))
+;;(def driver-inst (GraphDatabase/driver (System/getenv "NEO4J_SERVER_PATH") (AuthTokens/basic (System/getenv "NEO4J_USER") (System/getenv "NEO4J_PASS"))))
+
+(defstate driver-inst :start (GraphDatabase/driver (System/getenv "NEO4J_SERVER_PATH") (AuthTokens/basic (System/getenv "NEO4J_USER") (System/getenv "NEO4J_PASS"))))
 
 (def neo4j-import-path (str 
                         (or (System/getenv "NEO4J_PATH")  "/usr/share/neo4j")

@@ -11,7 +11,8 @@
             [chromatic-data.clinvar-process :as cv-proc]
             [chromatic-data.clinvar-import :as cv-import]
             [chromatic-data.omim :as omim]
-            [chromatic-data.rdf :as rdf])
+            [chromatic-data.rdf :as rdf]
+            [mount.core :as mount])
   (:import java.io.PushbackReader))
 
 ;; List of external assets to retrieve and the method to be used to import them
@@ -99,6 +100,7 @@
 (defn init-kb
   "Build the ClinGen Knowledgebase from scratch"
   [& optsarr]
+  (mount/start)
   (schema/cg-indexes)
   (let [opts (set optsarr)]
     (when (:refresh opts)

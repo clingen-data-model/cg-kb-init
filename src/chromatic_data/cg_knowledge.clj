@@ -4,7 +4,6 @@
             [clojure.java.io :as io]
             [chromatic-data.neo4j :as neo]
             [clojure-csv.core :as csv]
-            [chromatic-data.owl :as owl]
             [chromatic-data.fetch :as fetch]
             [chromatic-data.gene :as gene]
             [chromatic-data.pw-curation-import :as pw]
@@ -33,12 +32,9 @@
    ])
 
 (def asset-import-functions
-  {:import-ontology owl/import-ontology
-   :import-genes gene/create-genes
-   :update-ontology owl/update-class-metadata
+  {:import-genes gene/create-genes
    :pw-curations pw/import-cg-data
    :gene-dosage dosage/import-gene-dosage
-   :import-ontology-classes owl/import-ontology-classes
    :import-exons gene/create-exons
    :omim-genes omim/import-genemap2
    :import-rdf rdf/import-rdf})

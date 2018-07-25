@@ -116,7 +116,7 @@
 (defn update-kb
   "Download and update the aspects of the ClinGen KB that need periodic refreshment"
   [& opts]
-  (let [items (filter #(contains? #{:import-ontology} (nth % 2)) external-data)]
+  (let [items (filter #(contains? #{:import-rdf} (nth % 2)) external-data)]
     (fetch/fetch-all-remote-assets items)
     (doseq [i items]
       (import-asset i))

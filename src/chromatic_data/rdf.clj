@@ -33,7 +33,7 @@
         batches (partition-all 1000 properties)]
     (with-open [s (neo/create-session)]
       (doseq [b batches]
-        (.run s "unwind $props as p match (r:Resource {iri: p[0]}) set r = p[1]"
+        (.run s "unwind $props as p match (r:Resource {iri: p[0]}) set r += p[1]"
               {"props" b})))))
 
 (defn resource-statements
@@ -81,6 +81,9 @@
               m (ModelFactory/createDefaultModel)]
     ;; TODO detect serialization
     (.read m f nil (detect-syntax filename))
+    (println "Importing resources from " filename)
     (import-resources m)
+    (println "Importing relationships from " filename)
     (import-relationships m)
+    (println "Importing literals from " filename)
     (import-literals m)))

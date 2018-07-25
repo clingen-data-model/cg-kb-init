@@ -1,7 +1,8 @@
 (ns chromatic-data.schema
   (:require [chromatic-data.neo4j :as neo]))
 
-(def constraints [["Entity" "uuid"]
+(def constraints [["Resource" "iri"]
+                  ["Entity" "uuid"]
                   ["Assertion" "uuid"]
                   ["Intervention" "uuid"]
                   ["RDFClass" "iri"]

@@ -59,7 +59,7 @@
    "match (g:Gene) set g.search_label = g.symbol"
    "match (g:Gene) where g.alias_symbol is not null  set g.search_label = g.symbol + \" \" + reduce(s = \"\", x in g.alias_symbol | s + x + \" ,\")"
    "match (g:Gene) where g.entrez_id is not null set g.iri = 'https://www.ncbi.nlm.nih.gov/gene/' + g.entrez_id"
-   "match (c:Condition) set c.search_label = toUpper(c.label) + \" \" + toUpper(c.synonym)"])
+   "match (c:Condition) set c.search_label = toUpper(c.label)"])
 
 (defn run-post-update-queries
   "Label nodes and prepopulate properties for search"

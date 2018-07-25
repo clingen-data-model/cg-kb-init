@@ -11,11 +11,14 @@
   [model]
   (let [subjects (iterator-seq (.listSubjects model))
         objects (filter #(instance? Resource %) (iterator-seq (.listObjects model)))
-        iris (distinct (map #(.getURI %) (concat subjects objects)))
-        batches (partition-all 1000 (remove nil? iris))]
+        iris (map #(vector (.getURI %) (.getLocalName %)) (distinct (concat subjects objects))) 
+        ;;iris (distinct (map #(.getURI %) (concat subjects objects)))
+        batches (partition-all 1000 (remove #(nil? (first %)) iris))]
+
     (with-open [s (neo/create-session)]
       (doseq [b batches]
-        (.run s "unwind $iris as iri merge (:Resource {iri: iri})" {"iris" b})))))
+        (.run s "unwind $iris as iri merge (r:Resource {iri: iri[0]})
+                 set r.curie = iri[1]" {"iris" b})))))
 
 (defn import-literals
   "Import literal annotations into neo4j"

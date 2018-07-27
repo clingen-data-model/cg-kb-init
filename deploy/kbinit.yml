@@ -36,32 +36,5 @@
         owner: serveur
         group: serveur
         mode: 0755
-    - name: Copy current keystore to target
-      become: true
-      copy:
-        src: "{{ local_keystore_path }}"
-        dest: /usr/local/serveur/keys
-        owner: serveur
-        group: serveur
-        mode: 0755
-    - name: Copy current truststore to target
-      become: true
-      copy:
-        src: ~/code/serveur/keys/serveur.truststore.jks
-        dest: /usr/local/serveur/keys
-        owner: serveur
-        group: serveur
-        mode: 0755
-    - name: Copy systemd unit to target
-      become: true
-      template:
-        src: serveur.service
-        dest: /etc/systemd/system/serveur.service
-    - name: start serveur
-      become: true
-      systemd:
-        name: serveur
-        state: restarted
-        enabled: yes
-        daemon_reload: yes
+
         

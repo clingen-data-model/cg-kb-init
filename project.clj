@@ -6,7 +6,7 @@
   :repositories {"local" ~(str (.toURI (java.io.File. "maven_repository")))}
   :plugins [[lein-localrepo "0.5.3"]]
   :repl-options {:port 9999
-                 :host 0.0.0.0}
+                 :host "0.0.0.0"}
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [cheshire "5.8.0"]
                  [org.clojure/data.json "0.2.6"]

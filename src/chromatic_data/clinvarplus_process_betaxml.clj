@@ -313,9 +313,10 @@
 (defn read-cvp-recs
   [xml-reader in-port]
   (thread
-    (doseq [r (->> xml-reader xml/parse :content)]
-      (let [z (zip/xml-zip r)]
-        (>!! in-port z)))
+    (let [records (->> xml-reader xml/parse :content)]
+      (doseq [r records]
+        (let [z (zip/xml-zip r)]
+          (>!! in-port z))))
     (close! in-port)))
 
 (defn parse-clinvar-xml

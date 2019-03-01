@@ -20,6 +20,7 @@
   [
    ["https://github.com/The-Sequence-Ontology/SO-Ontologies/raw/master/so.owl" "data/so.owl" :import-rdf]
    ["http://purl.obolibrary.org/obo/mondo.owl" "data/mondo.owl" :import-rdf]
+   ["http://purl.obolibrary.org/obo/hp.owl" "data/hp.owl" :import-rdf]
    ;;["ftp://ftp.ebi.ac.uk/pub/databases/genenames/new/json/locus_groups/protein-coding_gene.json" "data/protein-coding_gene.json" :import-genes]
                                         ;["http://www.ensembl.org/biomart/martservice?query=%3C?xml%20version=%221.0%22%20encoding=%22UTF-8%22?%3E%3C!DOCTYPE%20Query%3E%3CQuery%20%20virtualSchemaName%20=%20%22default%22%20formatter%20=%20%22CSV%22%20header%20=%20%220%22%20uniqueRows%20=%20%221%22%20count%20=%20%22%22%20datasetConfigVersion%20=%20%220.6%22%20%3E%3CDataset%20name%20=%20%22hsapiens_gene_ensembl%22%20interface%20=%20%22default%22%20%3E%3CFilter%20name%20=%20%22biotype%22%20value%20=%20%22protein_coding%22/%3E%3CAttribute%20name%20=%20%22ensembl_gene_id%22%20/%3E%3CAttribute%20name%20=%20%22exon_chrom_start%22%20/%3E%3CAttribute%20name%20=%20%22exon_chrom_end%22%20/%3E%3CAttribute%20name%20=%20%22rank%22%20/%3E%3CAttribute%20name%20=%20%22ensembl_exon_id%22%20/%3E%3C/Dataset%3E%3C/Query%3E" "data/ensembl-gene-exons.csv" :import-exons]
                                         ; ["ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/xml/ClinVarFullRelease_00-latest.xml.gz" "data/clinvar.xml.gz" :import-clinvar]

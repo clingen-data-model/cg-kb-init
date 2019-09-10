@@ -29,6 +29,7 @@
    ;;["http://purl.obolibrary.org/obo/doid.owl" "data/doid.owl" :update-ontology]
    ;;["http://data.bioontology.org/ontologies/RXNORM/submissions/12/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb" "data/rxnorm.ttl" :import-ontology-classes]
    ;;["https://www.clinicalgenome.org/curated-json-for-search/" "data/curated-json-for-search.json" :pw-curations]
+   ;;["https://raw.githubusercontent.com/clingen-data-model/data-exchange-shared-json/master/json-from-gene-express/ClinGen-Gene-Expess-Data-03272019.json" "data/curated-json-for-search.json" :pw-curations]
    ;;["https://data.omim.org/downloads/U7rx7IRhSIah-gm1M-yBDA/genemap2.txt" "data/genemap2.txt" :omim-genes]
    ;;["ftp://ftp.ncbi.nlm.nih.gov/pub/dbVar/clingen/ClinGen_gene_curation_list.tsv" "data/ClinGen_gene_curation_list.tsv" :gene-dosage]
    ])

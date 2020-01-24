@@ -86,11 +86,15 @@
   [curation session label perm-id]
   (let [genes (vec (map #((second %) "curie") (curation "genes")))
         conditions (vec (map #((second %) "iri") (curation "conditions")))
+        mondo-conditions (vec (filter #(re-find #"MONDO" %) conditions))
         id (str (java.util.UUID/randomUUID))]
+    (.run session 
+          (str  "match (g:Gene)<-[:has_subject]-(a:" label ")-[:has_object]->(c:Resource) where g.hgnc_id in {genes} and c.iri in {conditions} detach delete a;")
+          {"genes" genes, "id" id, "conditions" conditions, "permid" perm-id})
     (.run session 
           (str  "match (g:Gene), (c:Resource) where g.hgnc_id in {genes} and c.iri in {conditions} 
 merge (a:" label  " {perm_id: {permid}}) on create set a.uuid = {id} merge (a)-[:has_subject]->(g) merge (a)-[:has_object]->(c)")
-          {"genes" genes, "id" id, "conditions" conditions, "permid" perm-id})
+          {"genes" genes, "id" id, "conditions" mondo-conditions, "permid" perm-id})
     id))
 
 

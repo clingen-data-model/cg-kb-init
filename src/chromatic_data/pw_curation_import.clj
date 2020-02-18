@@ -85,7 +85,8 @@
   "Create node with gene-disease relationship pair"
   [curation session label perm-id]
   (let [genes (vec (map #((second %) "curie") (curation "genes")))
-        conditions (vec (map #((second %) "iri") (curation "conditions")))
+        conditions (vec (map #((second %) "iri") (filter #(= "MONDO" (get % "ontology" "MONDO"))
+                                                         (get curation "conditions"))))
         mondo-conditions (vec (filter #(re-find #"MONDO" %) conditions))
         id (str (java.util.UUID/randomUUID))]
     (.run session 

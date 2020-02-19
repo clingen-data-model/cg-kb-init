@@ -81,6 +81,15 @@
     (doseq [s scores]
       (import-actionability-score newid s session))))
 
+(defn get-moi [curation]
+  (let [score (json/read-str (if (empty? (get curation "scoreJsonSerialized"))
+                               (get curation "scoreJsonSerializedSop5")
+                               (get curation "scoreJsonSerialized")))
+        moi (or (get-in score ["scoreJson" "ModeOfInheritance"])
+                  (get-in score ["data" "ModeOfInheritance"]))]
+    (str "http://purl.obolibrary.org/obo/HP_"
+         (second (re-find #"\(HP:(.*)\)" moi)))))
+
 (defn create-gene-disease-node
   "Create node with gene-disease relationship pair"
   [curation session label perm-id]
@@ -88,14 +97,18 @@
         conditions (vec (map #((second %) "iri") (filter #(= "MONDO" (get % "ontology" "MONDO"))
                                                          (get curation "conditions"))))
         mondo-conditions (vec (filter #(re-find #"MONDO" %) conditions))
+        moi (get-moi curation)
         id (str (java.util.UUID/randomUUID))]
+    (println genes)
+    (println mondo-conditions)
+    (println moi)
+    ;; (.run session 
+    ;;       (str  "match (g:Gene)<-[:has_subject]-(a:" label ")-[:has_object]->(c:Resource) where g.hgnc_id in {genes} and c.iri in {conditions} detach delete a;")
+    ;;       {"genes" genes, "id" id, "conditions" conditions, "permid" perm-id})
     (.run session 
-          (str  "match (g:Gene)<-[:has_subject]-(a:" label ")-[:has_object]->(c:Resource) where g.hgnc_id in {genes} and c.iri in {conditions} detach delete a;")
-          {"genes" genes, "id" id, "conditions" conditions, "permid" perm-id})
-    (.run session 
-          (str  "match (g:Gene), (c:Resource) where g.hgnc_id in {genes} and c.iri in {conditions} 
-merge (a:" label  " {perm_id: {permid}}) on create set a.uuid = {id} merge (a)-[:has_subject]->(g) merge (a)-[:has_object]->(c)")
-          {"genes" genes, "id" id, "conditions" mondo-conditions, "permid" perm-id})
+          (str  "match (g:Gene), (c:Resource), (moi:Resource) where g.hgnc_id in {genes} and c.iri in {conditions} and moi.iri = $moi
+merge (a:" label  " {perm_id: {permid}}) on create set a.uuid = {id} merge (a)-[:has_subject]->(g) merge (a)-[:has_object]->(c) merge (a)-[:has_mode_of_inheritance]->(moi)")
+          {"genes" genes, "id" id, "conditions" mondo-conditions, "permid" perm-id, "moi" moi})
     id))
 
 

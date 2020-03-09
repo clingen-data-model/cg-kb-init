@@ -39,7 +39,7 @@
   "Retrieve, store, and (if necessary) decompress location at url and store 
   at target-file "
   [url target-file & opts]
-  (if-let [result (:body (http/get url {:as :byte-array}))]
+  (if-let [result (:body (http/get url {:as :byte-array :accept :json}))]
     (do (with-open [f (io/output-stream target-file)]
           (.write f result))
         (unzip-target target-file))

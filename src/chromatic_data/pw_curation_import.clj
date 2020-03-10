@@ -138,10 +138,19 @@ merge (a:" label  " {perm_id: {permid}}) on create set a.uuid = {id} merge (a)-[
         interp-iri (some #(if (.contains score (first %)) (second %)) gene-disease-iris)
         score-json (curation "scoreJsonSerialized")
         score-json-sop5 (curation "scoreJsonSerializedSop5")
-        date (curation "dateISO8601")]
-    (.run session "match (a:Assertion {perm_id: {id}}), (i:Resource {iri: {interp}}) merge (a)-[:has_predicate]->(i) set a.score_string = {scorejson} set a.score_string_sop5 = {scorejsonsop5} set a.date = {date}"
+        date (curation "dateISO8601")
+        affiliation (curation "affiliation")]
+    (.run session "match (a:Assertion {perm_id: {id}}), (i:Resource {iri: {interp}}) merge (a)-[:has_predicate]->(i) merge (aff:Agent:Entity {iri: $affid}) merge (a)-[:wasAttributedto]->(aff) set aff.label = $afflabel set a.score_string = {scorejson} set a.score_string_sop5 = {scorejsonsop5} set a.date = {date}"
           {"interp" interp-iri, "scorejson" score-json, "scorejsonsop5" score-json-sop5,
-           "id" perm-id, "date" date})))
+           "id" perm-id, "date" date}, "affid" (str "https://search.clinicalgenome.org/kb/agents/" (get affiliation "id")), "afflabel" (get affiliation "name"))))
+
+(defn update-affiliation 
+  [record session]
+  (let [perm-id (first record)
+        curation (second record)
+        affiliation (curation "affiliation")]
+    (.run session "match (a:Assertion {perm_id: {id}}) merge (aff:Agent:Entity {iri: $affid}) merge (a)-[:wasAttributedto]->(aff) set aff.label = $afflabel"
+          {"id" perm-id,, "affid" (str "https://search.clinicalgenome.org/kb/agents/" (get affiliation "id")), "afflabel" (get affiliation "name")}))  )
 
 (defn import-cg-data
   "Import exported JSON file to neo4j"
@@ -153,4 +162,6 @@ merge (a:" label  " {perm_id: {permid}}) on create set a.uuid = {id} merge (a)-[
        (let [type ((second curation-record) "type")]
          (case type
            "actionability" (println "skipping actionability curation")
-           "clinicalValidity" (import-gene-disease curation-record session)))))))
+           ;;"clinicalValidity" (import-gene-disease curation-record session)
+           "clinicalValidity" (update-affiliation curation-record session)
+           ))))))

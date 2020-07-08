@@ -5,7 +5,7 @@
             [chromatic-data.neo4j :as neo]
             [clojure-csv.core :as csv]
             [chromatic-data.fetch :as fetch]
-            [chromatic-data.gene :as gene]
+            ;; [chromatic-data.gene :as gene]
             [chromatic-data.pw-curation-import :as pw]
             [chromatic-data.ncbi-dosage-import :as dosage]
             [chromatic-data.clinvar-process :as cv-proc]
@@ -39,10 +39,10 @@
    ])
 
 (def asset-import-functions
-  {:import-genes gene/create-genes
+  {;;:import-genes gene/create-genes
    :pw-curations pw/import-cg-data
    :gene-dosage dosage/import-gene-dosage
-   :import-exons gene/create-exons
+   ;;:import-exons gene/create-exons
    :omim-genes omim/import-genemap2
    :import-rdf rdf/import-rdf})
 

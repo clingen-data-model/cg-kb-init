@@ -2,7 +2,9 @@
   (:require [clojure.java.io :as io]
             [clojure.java.shell :as sh]
             [mount.core :refer [defstate]])
-  (:import [org.neo4j.driver.v1 Driver GraphDatabase AuthTokens Session StatementResult Record TransactionWork]))
+  (:import [org.neo4j.driver AuthTokens Driver GraphDatabase Result])
+  ;;(:import [org.neo4j.driver.v1 Driver GraphDatabase AuthTokens Session StatementResult Record TransactionWork])
+  )
 
 ;;(def driver-inst (GraphDatabase/driver (System/getenv "NEO4J_SERVER_PATH") (AuthTokens/basic (System/getenv "NEO4J_USER") (System/getenv "NEO4J_PASS"))))
 
@@ -75,13 +77,13 @@
   [t s]
   (if (string? s) (.run t s) (.run t (first s) (second s))))
 
-(defn tx
-  "Create a transation with one or more statements"
-  [stmt & more]
-  (proxy [TransactionWork] [] (execute [tx]
-                                (let [res (run-in-tx tx stmt)]
-                                  (doseq [s more]
-                                    (run-in-tx tx s))
-                                  res))))
+;; (defn tx
+;;   "Create a transation with one or more statements"
+;;   [stmt & more]
+;;   (proxy [TransactionWork] [] (execute [tx]
+;;                                 (let [res (run-in-tx tx stmt)]
+;;                                   (doseq [s more]
+;;                                     (run-in-tx tx s))
+;;                                   res))))
 
 

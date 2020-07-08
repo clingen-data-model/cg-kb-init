@@ -1,7 +1,8 @@
 (ns chromatic-data.pw-curation-import
   (:require [clojure.data.json :as json]
             [chromatic-data.neo4j :as neo]
-            [clojure.java.io :as io]))
+            [clojure.java.io :as io])
+  (:import [org.neo4j.driver Session TransactionConfig]))
 
 (def iri-prefixes {:omim "http://purl.obolibrary.org/obo/OMIM_"})
 
@@ -141,8 +142,13 @@ merge (a:" label  " {perm_id: {permid}}) on create set a.uuid = {id} merge (a)-[
         date (curation "dateISO8601")
         affiliation (curation "affiliation")]
     (.run session "match (a:Assertion {perm_id: {id}}), (i:Resource {iri: {interp}}) merge (a)-[:has_predicate]->(i) merge (aff:Agent:Entity {iri: $affid}) merge (a)-[:wasAttributedto]->(aff) set aff.label = $afflabel set a.score_string = {scorejson} set a.score_string_sop5 = {scorejsonsop5} set a.date = {date}"
-          {"interp" interp-iri, "scorejson" score-json, "scorejsonsop5" score-json-sop5,
-           "id" perm-id, "date" date}, "affid" (str "https://search.clinicalgenome.org/kb/agents/" (get affiliation "id")), "afflabel" (get affiliation "name"))))
+          {"interp" interp-iri
+           "scorejson" score-json
+           "scorejsonsop5" score-json-sop5
+           "id" perm-id, "date" date
+           "affid" (str "https://search.clinicalgenome.org/kb/agents/" (get affiliation "id"))
+           "afflabel" (get affiliation "name")}
+          (TransactionConfig/empty))))
 
 (defn update-affiliation 
   [record session]
@@ -162,6 +168,6 @@ merge (a:" label  " {perm_id: {permid}}) on create set a.uuid = {id} merge (a)-[
        (let [type ((second curation-record) "type")]
          (case type
            "actionability" (println "skipping actionability curation")
-           ;;"clinicalValidity" (import-gene-disease curation-record session)
-           "clinicalValidity" (update-affiliation curation-record session)
+           "clinicalValidity" (import-gene-disease curation-record session)
+           ;;"clinicalValidity" (update-affiliation curation-record session)
            ))))))
